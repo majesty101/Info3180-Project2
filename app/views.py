@@ -13,6 +13,44 @@ from flask import render_template, request, redirect, url_for, flash
 # Routing for your application.
 ###
 
+@app.route('/api/register', methods=['POST'])
+def register():
+
+@app.route('/api/auth/login', methods=['POST'])
+def login():
+
+@app.route('/api/auth/logout', methods=['POST'])
+def logout():
+
+@app.route('/api/cars', methods=['GET'])
+def cars1():
+
+@app.route('/api/cars', methods=['POST'])
+def cars2():
+
+@app.route('/api/cars/{car_id}', methods=['GET'])
+def cars3():
+
+@app.route('/api/cars/{car_id}/favourite', methods=['POST'])
+def cars_favs():
+
+@app.route('/api/search', methods=['GET'])
+def search():
+
+@app.route('/api/users/{user_id}', methods=['GET'])
+def users():
+
+@app.route('/api/users/{user_id}/favourites', methods=['GET'])
+def users_favs():
+
+
+
+
+
+
+
+
+
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def index(path):
