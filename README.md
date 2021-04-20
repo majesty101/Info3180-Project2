@@ -1,4 +1,4 @@
-# Lab 6 - VueJS
+# Project 2 - VueJS
 
 The goal of this lab is to become familiar with VueJS.
 
