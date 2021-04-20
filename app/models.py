@@ -19,7 +19,7 @@ class Cars(db.Model):
     def __init__(self, description, make, model, colour, year, transmission, car_type, photo, user_id):
         self.description=description
         self.make=make
-        self.model.model
+        self.model = model
         self.colour=colour
         self.year=year
         self.transmssion=transmission

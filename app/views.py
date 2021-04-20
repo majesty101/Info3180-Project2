@@ -6,7 +6,9 @@ This file creates your application.
 """
 
 from app import app
-from flask import render_template, request, redirect, url_for, flash
+from app.models import *
+from flask import render_template, request, redirect, url_for, flash ,jsonify
+
 
 
 ###
@@ -57,3 +59,44 @@ def page_not_found(error):
 
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port="8080")
+
+
+
+@app.route('/api/cars',methods = ['GET','POST'])
+def cars():
+    if request.method == 'GET':
+        response = []
+        cars = Cars.query.all()
+        for i in range(len(cars)):
+            car = cars[i]
+            response.append({i:{'id':car.id,'description':car.description,'make':car.make,'model':car.model,'colour':car.colour,'year':car.year,'transmission':car.transmission,'car_type':car.car_type,'photo':car.photo,'user_id':car.user_id}})
+          
+        return jsonify(response)
+    
+    elif request.method == 'POST':
+        #Code for adding a new car goes here. Need forms.py 
+        return ('code for adding cars')
+
+
+
+@app.route('/api/cars/<car_id>',methods=['GET'])
+def carDetails(car_id):
+    car = Cars.query.get(car_id)
+    response={'id':car.id,'description':car.description,'make':car.make,'model':car.model,'colour':car.colour,'year':car.year,'transmission':car.transmission,'car_type':car.car_type,'photo':car.photo,'user_id':car.user_id}
+    return jsonify(response)
+
+
+
+@app.route('/api/cars/<car_id>/favourite',methods = ['POST'])
+def favourite(car_id):
+    user_id = 1 # place holder
+    fav = Favourites(car_id,user_id)
+    try:
+        db.session.add(fav)
+        db.session.commit()
+        response = {'message':'Favourite sucessfully added'}
+    except:
+        response = {'message':'An Error has occured'}
+
+    return jsonify(response)
+
