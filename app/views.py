@@ -8,7 +8,7 @@ This file creates your application.
 from app import app
 from app.models import *
 from flask import render_template, request, redirect, url_for, flash ,jsonify
-
+import os, datetime
 
 
 ###
@@ -87,6 +87,7 @@ def carDetails(car_id):
 
 
 
+
 @app.route('/api/cars/<car_id>/favourite',methods = ['POST'])
 def favourite(car_id):
     user_id = 1 # place holder
@@ -100,3 +101,16 @@ def favourite(car_id):
 
     return jsonify(response)
 
+@app.route('/api/users/<user_id>', methods=['GET'])
+def userDetails(user_id):
+    user=Users.query.get(user_id)
+    response={'id':user.id, 'username':user.username, 'name':user.name, 'email':user.email, 'location':user.location, 'biography': user.biography, 'photo':user.photo, 'date_joined': user.date_joined }
+    return jsonify(response)
+
+@app.route('/api/users/<user_id>/favourites', methods=['GET'])
+def usersFav(user_id):
+    fav=Favourites.query.get(user_id)
+    carmodel= Cars.query.get(user_id)
+
+    response ={'id':fav.id, 'car_id': fav.car_id, 'user_id':fav.user_id, 'description':carmodel.description, 'make':carmodel.make, 'model': carmodel.model, 'colour':carmodel.colour, 'year':carmodel.year, 'transmission':carmodel.transmission, 'car_type':carmodel.car_type,'photo':carmodel.photo }
+    return jsonify(response)
