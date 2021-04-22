@@ -1,11 +1,28 @@
 /* Add your Application JavaScript */
 const app = Vue.createApp({
+  components: {
+    'Home' : Home,
+    'upload-form' : UploadForm
+  },  
   data() {
     return {
       welcome: 'Hello World! Welcome to VueJS'
     }
   }
 });
+
+const Home = {
+  name: 'Home',
+  template: `
+  <div class="jumbotron">
+      <h1>Lab 7</h1>
+      <p class="lead">In this lab we will demonstrate VueJS working with Forms and Form Validation from Flask-WTF.</p>
+  </div>
+  `,
+  data() {
+      return {}
+  }
+};
 
 app.component('app-header', {
   name: 'AppHeader',
@@ -51,4 +68,32 @@ app.component('app-footer', {
   }
 })
 
+const NotFound = {
+  name: 'NotFound',
+  template: `
+  <div>
+      <h1>404 - Not Found</h1>
+  </div>
+  `,
+  data() {
+      return {}
+  }
+};
+
+// Define Routes
+const routes = [
+  { path: "/", component: Home },
+  //{ path: '/upload', component: UploadForm},
+  // Put other routes here
+
+  // This is a catch all route in case none of the above matches
+  { path: '/:pathMatch(.*)*', name: 'not-found', component: NotFound }
+];
+
+const router = VueRouter.createRouter({
+  history: VueRouter.createWebHistory(),
+  routes, // short for `routes: routes`
+});
+
+app.use(router);
 app.mount('#app');

@@ -11,19 +11,20 @@ class Cars(db.Model):
     year=db.Column(db.String(255))
     transmission=db.Column(db.String(255)) 
     car_type=db.Column(db.String(255))
-   # price=db.Column(db.Decimal)
+    price=db.Column(db.Float)
     photo=db.Column(db.String())
     user_id=db.Column(db.Integer)
 
 
-    def __init__(self, description, make, model, colour, year, transmission, car_type, photo, user_id):
+    def __init__(self, description, make, model, colour, year, transmission, car_type, price, photo, user_id):
         self.description=description
         self.make=make
-        self.model.model
+        self.model = model
         self.colour=colour
         self.year=year
         self.transmssion=transmission
         self.car_type=car_type
+        self.price = price
         self.photo=photo
         self.user_id=user_id
 

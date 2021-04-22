@@ -14,10 +14,11 @@ from flask import json, jsonify, render_template, request, redirect, url_for, fl
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.utils import secure_filename
 from werkzeug.security import check_password_hash
-from app.forms import RegisterForm, LoginForm
-from app.models import Users
+from app.forms import NewCar, RegisterForm, LoginForm, SearchForm
+from app.models import *
 from datetime import datetime
 from functools import wraps
+from sqlalchemy import and_
 
 def requires_auth(f):
   @wraps(f)
@@ -104,43 +105,114 @@ def logout():
     app.send_static_file('index.html')
     return json.jsonify(message="Log out successful")
 
-"""
-@app.route('/api/cars', methods=['GET'])
+@app.route('/api/cars',methods = ['GET','POST'])
 @requires_auth
-def cars1():
+def cars():
+    form = NewCar()
+    if request.method == 'GET':
+        response = []
+        cars = Cars.query.all()
+        for i in range(len(cars)):
+            car = cars[i]
+            response.append({i:{'id':car.id,'description':car.description,'make':car.make,'model':car.model,'colour':car.colour,'year':car.year,'transmission':car.transmission,'car_type':car.car_type, 'price':car.price,'photo':car.photo,'user_id':car.user_id}})
+          
+        return jsonify(response)
+    
+    elif form.validate_on_submit():
+        image = form.photo.data
+        filename = secure_filename(image.filename)
+        car = Cars(description = form.description.data, make = form.make.data, model = form.model.data,
+        colour = form.colour.data, year = form.year.data, transmission = form.transmission.data, car_type = form.car_type.data,
+        price = form.price.data, photo = filename, user_id = form.user_id.data)
+        db.session.add(car)
+        db.session.commit()
+        image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        flash('Car Successfully added', 'success')
+        return jsonify(id = car.id, description = form.description.data, make = form.make.data, model = form.model.data,
+        colour = form.colour.data, year = form.year.data, transmission = form.transmission.data, car_type = form.car_type.data,
+        price = form.price.data, photo = filename, user_id = form.user_id.data)
 
-@app.route('/api/cars', methods=['POST'])
+
+
+@app.route('/api/cars/<car_id>',methods=['GET'])
 @requires_auth
-def cars2():
+def carDetails(car_id):
+    car = Cars.query.get(car_id)
+    response={'id':car.id,'description':car.description,'make':car.make,'model':car.model,'colour':car.colour,'year':car.year,'transmission':car.transmission,'car_type':car.car_type, 'price':car.price, 'photo':car.photo,'user_id':car.user_id}
+    return jsonify(response)
 
-@app.route('/api/cars/{car_id}', methods=['GET'])
+
+
+
+@app.route('/api/cars/<car_id>/favourite',methods = ['POST'])
 @requires_auth
-def cars3():
+def favourite(car_id):
+    user_id = 1 # place holder
+    fav = Favourites(car_id,user_id)
+    try:
+        db.session.add(fav)
+        db.session.commit()
+        response = {'message':'Favourite sucessfully added'}
+    except:
+        response = {'message':'An Error has occured'}
 
-@app.route('/api/cars/{car_id}/favourite', methods=['POST'])
-@requires_auth
-def cars_favs():
+    return jsonify(response)
 
-@app.route('/api/search', methods=['GET'])
+@app.route('/api/search', methods = ['GET'])
 @requires_auth
 def search():
+    form = SearchForm()
+    response = []
+    if form.make.data and form.model.data:
+        one = form.make.data
+        two = form.model.data
+        cars = Cars.query.filter_by(and_(make=one, model=two))
+        for i in range(len(cars)):
+            car = cars[i]
+            response.append({i:{'id':car.id,'description':car.description,'make':car.make,'model':car.model,'colour':car.colour,'year':car.year,'transmission':car.transmission,'car_type':car.car_type, 'price':car.price,'photo':car.photo,'user_id':car.user_id}})
+          
+        return jsonify(response)
+    
+    elif form.make.data:
+        make = form.make.data
+        cars = Cars.query.filter_by(make = make)
+        for i in range(len(cars)):
+            car = cars[i]
+            response.append({i:{'id':car.id,'description':car.description,'make':car.make,'model':car.model,'colour':car.colour,'year':car.year,'transmission':car.transmission,'car_type':car.car_type, 'price':car.price,'photo':car.photo,'user_id':car.user_id}})
+          
+        return jsonify(response)
+        
+    
+    elif form.model.data:
+        model = form.model.data
+        cars = Cars.query.filter_by(model = model)
+        for i in range(len(cars)):
+            car = cars[i]
+            response.append({i:{'id':car.id,'description':car.description,'make':car.make,'model':car.model,'colour':car.colour,'year':car.year,'transmission':car.transmission,'car_type':car.car_type, 'price':car.price,'photo':car.photo,'user_id':car.user_id}})
+          
+        return jsonify(response)
 
-@app.route('/api/users/{user_id}', methods=['GET'])
+    else:
+        flash("Please fill out at least one of the fields", 'danger')
+
+
+
+
+@app.route('/api/users/<user_id>', methods=['GET'])
 @requires_auth
-def users():
+def userDetails(user_id):
+    user=Users.query.get(user_id)
+    response={'id':user.id, 'username':user.username, 'name':user.name, 'email':user.email, 'location':user.location, 'biography': user.biography, 'photo':user.photo, 'date_joined': user.date_joined }
+    return jsonify(response)
 
-@app.route('/api/users/{user_id}/favourites', methods=['GET'])
+@app.route('/api/users/<user_id>/favourites', methods=['GET'])
 @requires_auth
-def users_favs():
-"""
+def usersFav(user_id):
+    fav=Favourites.query.get(user_id)
+    carmodel= Cars.query.get(user_id)
 
-
-
-
-
-
-
-
+    response ={'id':fav.id, 'car_id': fav.car_id, 'user_id':fav.user_id, 'description':carmodel.description, 'make':carmodel.make, 'model': carmodel.model, 'colour':carmodel.colour, 'year':carmodel.year, 'transmission':carmodel.transmission, 'car_type':carmodel.car_type, 'price':carmodel.price,'photo':carmodel.photo }
+    return jsonify(response)
 
 
 @app.route('/', defaults={'path': ''})
