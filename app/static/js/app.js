@@ -1,18 +1,21 @@
-/* Add your Application JavaScript */
 const app = Vue.createApp({
   data() {
     return {
-      welcome: 'Hello World! Welcome to VueJS'
+      welcome: 'Hello World! Welcome to VueJS',
+      component:{
+        'explorepage': explorepage
+      }
     }
   }
 });
+
 
 app.component('app-header', {
   name: 'AppHeader',
   template: `
       <header>
           <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
-            <a class="navbar-brand" href="#">VueJS App</a>
+            <a class="navbar-brand" href="#">United Auto Sales</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
@@ -23,7 +26,7 @@ app.component('app-header', {
                   <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">News</a>
+                  <a class="nav-link" href="#"></a>
                 </li>
               </ul>
             </div>
@@ -50,5 +53,136 @@ app.component('app-footer', {
       }
   }
 })
+const login = {
+  name: 'login',
+  template:`
+  `
+}
 
+const register = {
+  name: 'register',
+  template:`
+  `
+}
+const logout = {
+  name: 'logout',
+  template:`
+  `
+}
+
+const users = {
+  name: 'users',
+  template:`
+  `
+}
+
+const cars = {
+  name: 'newcar',
+  template:`
+  `
+}
+
+const car_id = {
+  name: 'carid',
+  template:`
+  `
+}
+
+
+const explorepage={
+  name: 'explorepage',
+  template: ` 
+  <div class="cars">
+      <h2>Explore</h2>
+      
+  </div>
+  <div class="form-group mx-sm-3 mb-2">
+        <label class="sr-only" for="search">Search</label>
+        <input type="search" name="search" v-model="searchTerm"
+        id="search" class="form-control mb-2 mr-sm-2" placeholder="Enter search term here" />
+        <input type="search" name="search" v-model="searchTerm"
+        id="search" class="form-control mb-2 mr-sm-2" placeholder="Enter search term here" />
+        <button class="btn btn-primary mb-2"
+          @click="searchNews">Search</button>
+      </div>
+      <ul class="cars__list">
+        <li v-for="car in cars"
+        class="cars__item">{{car.photo}}{{ car.title }}{{car.price}}</li>
+        <button class="btn btn-primary mb-2"
+        @click="searchNews">View more Details</button>
+      </ul>`,
+
+
+created() {
+  let self = this;
+  fetch('https://localhost/api/cars',
+  {
+    headers: { 
+      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ'
+    }
+  })
+
+  .then(function(response) {
+    return response.json();
+  })
+
+  .then(function(data) {
+    console.log(data);
+    self.cars = data.cars;
+    });
+  },
+
+  data() {
+    return { cars: [], searchTerm: ''
+    }
+  },
+  methods: {
+    searchCars() {
+      let self = this;
+      fetch('https://localhost/api/cars'+ self.searchTerm + '&language=en', {
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ'
+      })
+      
+      .then(function(response) {
+        return response.json();
+      })
+
+      .then(function(data) {
+        console.log(data);
+        self.cars = data.cars;
+      });
+    }
+  }
+};
+
+const Home = {
+  name: 'Home',
+  template: `
+  <div class="home">
+    <img src="/static/images/logo.png" alt="VueJS Logo">
+    <h1>{{ welcome }}</h1>
+  </div>
+  `,
+
+    data() {
+      return { welcome: 'Hello World! Welcome to VueJS'}
+    }
+  };
+
+const router =VueRouter.createRouter({
+  history:VueRouter.createWebHistory(),
+  routes:[
+    { path: '/', component: Home },
+    { path: '/explorepage', component:explorepage },
+    { path: '/login', component: login },
+    { path: '/register', component: register },
+    { path: '/logout', component: logout },
+    { path: '/users/{user_id}', component: users},
+    { path: '/cars/new', component: cars },  
+    { path: '/cars/{card_id}', component: car_id}
+
+  ]
+});
+
+app.use(router)
 app.mount('#app');
