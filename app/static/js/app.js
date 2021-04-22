@@ -1,7 +1,6 @@
 const app = Vue.createApp({
   components: {
-    'Home' : Home,
-    'upload-form' : UploadForm
+    'Home' : Home
   },  
   data() {
     return {
@@ -13,18 +12,6 @@ const app = Vue.createApp({
   }
 });
 
-const Home = {
-  name: 'Home',
-  template: `
-  <div class="jumbotron">
-      <h1>Lab 7</h1>
-      <p class="lead">In this lab we will demonstrate VueJS working with Forms and Form Validation from Flask-WTF.</p>
-  </div>
-  `,
-  data() {
-      return {}
-  }
-};
 
 app.component('app-header', {
   name: 'AppHeader',
@@ -82,23 +69,8 @@ const NotFound = {
   }
 };
 
-// Define Routes
-const routes = [
-  { path: "/", component: Home },
-  //{ path: '/upload', component: UploadForm},
-  // Put other routes here
 
-  // This is a catch all route in case none of the above matches
-  { path: '/:pathMatch(.*)*', name: 'not-found', component: NotFound }
-];
 
-const router = VueRouter.createRouter({
-  history: VueRouter.createWebHistory(),
-  routes, // short for `routes: routes`
-});
-
-app.use(router);
-app.mount('#app');
 const explorepage={
   name: 'explorepage',
   template: ` 
@@ -179,13 +151,21 @@ const Home = {
     }
   };
 
-const router =VueRouter.createRouter({
-  history:VueRouter.createWebHistory(),
-  routes:[
-    { path: '/', component: Home },
-    {path:'/explorepage', component:explorepage }
-  ]
+// Define Routes
+const routes = [
+  { path: "/", component: Home },
+  { path:'/explorepage', component:explorepage },
+  // Put other routes here
+
+  // This is a catch all route in case none of the above matches
+  { path: '/:pathMatch(.*)*', name: 'not-found', component: NotFound }
+];
+
+const router = VueRouter.createRouter({
+  history: VueRouter.createWebHistory(),
+  routes, // short for `routes: routes`
 });
+
 
 app.use(router)
 app.mount('#app');
