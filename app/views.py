@@ -9,7 +9,7 @@ import os
 import jwt
 
 from flask.helpers import send_from_directory
-from app import app, db
+from app import app, db, login_manager
 from flask import json, jsonify, render_template, request, redirect, url_for, flash, session, abort
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.utils import secure_filename
@@ -225,7 +225,11 @@ def index(path):
 
     Also we will render the initial webpage and then let VueJS take control.
     """
-    return app.send_static_file('index.html')
+    return render_template('index.html')
+
+@login_manager.user_loader
+def load_user(id):
+    return Users.query.get(int(id))
 
 
 ###

@@ -193,7 +193,7 @@ const Home = {
     components: {
         'Home' : Home,
         'explorepage' : explorepage,
-        'loginPages' : Login
+        'loginPage' : Login
     },    
     data() {
         return {
@@ -260,5 +260,5 @@ const router =VueRouter.createRouter({
   ]
 });
 
-app.use(router)
+app.use(router);
 app.mount('#app');
