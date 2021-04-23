@@ -10,7 +10,7 @@ import jwt
 
 from flask.helpers import send_from_directory
 from app import app, db, login_manager
-from flask import json, jsonify, render_template, request, redirect, url_for, flash, session, abort
+from flask import json, jsonify, render_template, request, redirect, url_for, flash, session, abort, g
 from flask_login import login_user, logout_user, current_user, login_required
 from werkzeug.utils import secure_filename
 from werkzeug.security import check_password_hash
@@ -69,7 +69,6 @@ def register():
         db.session.commit()
         image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         flash('User Successfully registered', 'success')
-        redirect(url_for("login"))
         return json.jsonify(username = form.username.data, name = form.name.data, photo = filename,
         email = form.email.data, location = form.location.data, biography = form.biography.data,
         date_joined = current_dt.strftime("%Y-%m-%d " + "%X"))
@@ -87,13 +86,13 @@ def login():
             # get user id, load into session
                 login_user(user)
                 flash('User Successfully logged in', 'success')
-                redirect(url_for("cars1"))
+    
                 payload = {
                     'username': username,
                     'password': password
                 }
                 token = jwt.encode(payload, app.config['SECRET_KEY'], algorithm='HS256')
-                return json.jsonify(message="Login Succesful", token = token)
+                return json.jsonify(status=200, token = token)
             else:
                 flash('Username or Password is incorrect.', 'danger')
 
@@ -114,7 +113,7 @@ def cars():
         cars = Cars.query.all()
         for i in range(len(cars)):
             car = cars[i]
-            response.append({i:{'id':car.id,'description':car.description,'make':car.make,'model':car.model,'colour':car.colour,'year':car.year,'transmission':car.transmission,'car_type':car.car_type, 'price':car.price,'photo':car.photo,'user_id':car.user_id}})
+            response.append({'id':car.id,'description':car.description,'make':car.make,'model':car.model,'colour':car.colour,'year':car.year,'transmission':car.transmission,'car_type':car.car_type, 'price':car.price,'photo':car.photo,'user_id':car.user_id})
           
         return jsonify(response)
     
@@ -132,15 +131,12 @@ def cars():
         colour = form.colour.data, year = form.year.data, transmission = form.transmission.data, car_type = form.car_type.data,
         price = form.price.data, photo = filename, user_id = form.user_id.data)
 
-
-
 @app.route('/api/cars/<car_id>',methods=['GET'])
 @requires_auth
 def carDetails(car_id):
     car = Cars.query.get(car_id)
     response={'id':car.id,'description':car.description,'make':car.make,'model':car.model,'colour':car.colour,'year':car.year,'transmission':car.transmission,'car_type':car.car_type, 'price':car.price, 'photo':car.photo,'user_id':car.user_id}
     return jsonify(response)
-
 
 
 

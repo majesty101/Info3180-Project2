@@ -51,13 +51,15 @@ methods: {
       }).then(function(jsonResponse) {
           // display a success message or error/s, depending
           displayAlert.style.display = "block";
-          console.log(jsonResponse.status);
           if (jsonResponse.status == 200) {
               self.alertText = jsonResponse.message;
               // alert(self.alertText);
               self.errors = []
               displayAlert.classList.add("alert-success");
               displayAlert.classList.remove("alert-danger");
+              let jwt_token = jsonResponse.token;
+              sessionStorage.setItem('token',jwt_token)
+              router.push('explorepage')
           } else if (jsonResponse.status == 500) {
               self.errors = jsonResponse.errors;
               self.alertText = "";
@@ -93,7 +95,27 @@ const logout = {
 const users = {
   name: 'users',
   template:`
-  `
+  <div class="user-profile">
+    <h2>User {{$route.params.UID}}</h2>
+  </div>
+  `,
+  created() {
+    let self = this;
+    fetch('/api/users/' + self.$route.params.UID,
+    {
+      headers: { 
+        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ'
+      }
+    })
+  
+    .then(function(response) {
+      return response.json()
+    })
+  
+    .then(function(data) {
+      self.car = data
+      });
+    },
 }
 
 const cars = {
@@ -105,7 +127,35 @@ const cars = {
 const car_id = {
   name: 'carid',
   template:`
-  `
+  <div class="car-details">
+  <h1 v-if="car">{{car.id}}</h1>
+    <p> {{ car.make }} {{ car.model }} </p>
+  </div>
+  `,
+  created() {
+    let self = this;
+    fetch('/api/cars/' + self.$route.params.CID,
+    {
+      method: 'GET',
+      headers: { 
+        'Authorization': 'Bearer ' + sessionStorage.getItem('token'), 'X-CRFToken': token
+      }
+    })
+  
+    .then(function(response) {
+      return response.json()
+    })
+  
+    .then(function(data) {
+      console.log(data)
+      self.car = data
+      });
+    },
+    data() {
+      return { car: []
+      }
+    },
+    
 }
 
 
@@ -123,22 +173,22 @@ const explorepage={
         <input type="search" name="search" v-model="searchTerm"
         id="search" class="form-control mb-2 mr-sm-2" placeholder="Enter search term here" />
         <button class="btn btn-primary mb-2"
-          @click="searchNews">Search</button>
+          @click="searchCars">Search</button>
       </div>
       <ul class="cars__list">
         <li v-for="car in cars"
-        class="cars__item">{{car.photo}}{{ car.title }}{{car.price}}</li>
+        class="cars__item">{{ car.make }} {{car.model}}
         <button class="btn btn-primary mb-2"
-        @click="searchNews">View more Details</button>
+        @click="searchCars(car.id)">View more Details</button></li>
       </ul>`,
 
 
 created() {
   let self = this;
-  fetch('https://localhost/api/cars',
+  fetch('/api/cars',
   {
     headers: { 
-      'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ'
+      'Authorization': 'Bearer ' + sessionStorage.getItem('token'), 'X-CRFToken': token
     }
   })
 
@@ -147,8 +197,7 @@ created() {
   })
 
   .then(function(data) {
-    console.log(data);
-    self.cars = data.cars;
+    self.cars = data;
     });
   },
 
@@ -157,20 +206,10 @@ created() {
     }
   },
   methods: {
-    searchCars() {
-      let self = this;
-      fetch('https://localhost/api/cars'+ self.searchTerm + '&language=en', {
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ'
-      })
+    searchCars(id) {
+      router.push('/cars/' + id)
       
-      .then(function(response) {
-        return response.json();
-      })
 
-      .then(function(data) {
-        console.log(data);
-        self.cars = data.cars;
-      });
     }
   }
 };
@@ -189,16 +228,17 @@ const Home = {
     }
   };
 
- const app = Vue.createApp({
-    components: {
-        'Home' : Home,
-        'explorepage' : explorepage,
-        'loginPage' : Login
-    },    
+  const app = Vue.createApp({
     data() {
-        return {
-          welcome: 'Hello World! Welcome to VueJS'
+      return {
+        welcome: 'Hello World! Welcome to VueJS',
+        components:{
+          'explorepage': explorepage,
+          'users/UID': users,
+          'cars/CID':car_id,
+          'loginPages' : Login
         }
+      }
     }
   });
 
@@ -254,9 +294,9 @@ const router =VueRouter.createRouter({
     { path: '/login', component: Login },
     { path: '/register', component: register },
     { path: '/logout', component: logout },
-    { path: '/users/{user_id}', component: users},
+    { path: '/users/:UID', component: users},
     { path: '/cars/new', component: cars },  
-    { path: '/cars/{card_id}', component: car_id}
+    { path: '/cars/:CID', component: car_id}
   ]
 });
 
