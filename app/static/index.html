@@ -17,17 +17,17 @@
   </head>
   <body>
     <div id="app">
-        <app-header></app-header>
-        <main>
-            <div class="container">
-                <div class="text-center">
-                    <img src="/static/images/logo.png" alt="VueJS Logo">
-                    <h1>{{ welcome }}</h1>
-                </div>
-            </div>
-        </main>
-        <app-footer></app-footer>
-    </div>
+      <app-header></app-header>
+  
+      <main>
+          <div class="container">
+              <!-- component matched by the route will render here -->
+              <router-view></router-view>
+          </div>
+      </main>
+  
+      <app-footer></app-footer>
+  </div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
