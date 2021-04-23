@@ -1,12 +1,9 @@
 const app = Vue.createApp({
-  components: {
-    'Home' : Home
-  },  
   data() {
     return {
       welcome: 'Hello World! Welcome to VueJS',
       component:{
-        'explorePage': explorepage
+        'explorepage': explorepage
       }
     }
   }
@@ -22,7 +19,6 @@ app.component('app-header', {
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
-
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
@@ -56,19 +52,40 @@ app.component('app-footer', {
       }
   }
 })
+const login = {
+  name: 'login',
+  template:`
+  `
+}
 
-const NotFound = {
-  name: 'NotFound',
-  template: `
-  <div>
-      <h1>404 - Not Found</h1>
-  </div>
-  `,
-  data() {
-      return {}
-  }
-};
+const register = {
+  name: 'register',
+  template:`
+  `
+}
+const logout = {
+  name: 'logout',
+  template:`
+  `
+}
 
+const users = {
+  name: 'users',
+  template:`
+  `
+}
+
+const cars = {
+  name: 'newcar',
+  template:`
+  `
+}
+
+const car_id = {
+  name: 'carid',
+  template:`
+  `
+}
 
 
 const explorepage={
@@ -151,21 +168,20 @@ const Home = {
     }
   };
 
-// Define Routes
-const routes = [
-  { path: "/", component: Home },
-  { path:'/explorepage', component:explorepage },
-  // Put other routes here
+const router =VueRouter.createRouter({
+  history:VueRouter.createWebHistory(),
+  routes:[
+    { path: '/', component: Home },
+    { path: '/explorepage', component:explorepage },
+    { path: '/login', component: login },
+    { path: '/register', component: register },
+    { path: '/logout', component: logout },
+    { path: '/users/{user_id}', component: users},
+    { path: '/cars/new', component: cars },  
+    { path: '/cars/{card_id}', component: car_id}
 
-  // This is a catch all route in case none of the above matches
-  { path: '/:pathMatch(.*)*', name: 'not-found', component: NotFound }
-];
-
-const router = VueRouter.createRouter({
-  history: VueRouter.createWebHistory(),
-  routes, // short for `routes: routes`
+  ]
 });
-
 
 app.use(router)
 app.mount('#app');
