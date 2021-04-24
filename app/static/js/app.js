@@ -142,22 +142,45 @@ const register = {
 const logout = {
   name: 'logout',
   template:`
-  `
-}
+  <h1> Logging out user <h1>
+  `,
+  created() {
+    let self = this;
+    fetch('/api/auth/logout',
+    {
+      method: 'POST',
+      headers: { 
+        'X-CSRFToken': token
+      }
+    })
+  
+    .then(function(response) {
+      return response.json()
+    })
+  
+    .then(function(result) {
+      if (result.status == 200){
+        sessionStorage.removeItem('token')
+        router.push('/')
+      } 
+      });
+    },
 
+}
 const users = {
   name: 'users',
   template:`
   <div class="user-profile">
-    <h2>User {{$route.params.UID}}</h2>
+    <h2>User {{user.id}}</h2>
   </div>
   `,
   created() {
     let self = this;
     fetch('/api/users/' + self.$route.params.UID,
     {
+      method: 'GET',
       headers: { 
-        'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWV9.TJVA95OrM7E2cBab30RMHrHDcEfxjoYZgeFONFh7HgQ'
+        'Authorization': 'Bearer ' + sessionStorage.getItem('token'), 'X-CRFToken': token
       }
     })
   
@@ -166,8 +189,13 @@ const users = {
     })
   
     .then(function(data) {
-      self.car = data
+      console.log(data)
+      self.user = data
       });
+    },
+    data() {
+      return { user: []
+      }
     },
 }
 
@@ -254,6 +282,8 @@ class="cars__item">
 
 created() {
   let self = this;
+  self.searchMake = ''
+  self.searchModel = ''
   fetch('/api/cars',
   {
     headers: { 
@@ -278,9 +308,7 @@ created() {
   methods:{
     Viewdetails(){
       let self=this;
-      let searchform= document.getElementById('searchform');
-      let form_data= new FormData(searchform);
-
+      
       fetch('/api/search?searchformake=' +self.searchMake+ '&searchformodel=' +self.searchModel, { 
         
         method: 'GET',
@@ -292,16 +320,18 @@ created() {
         return response.json();
         })
         .then(function (jsonResponse) {
-          self.cars=jsonResponse.response
-          console.log(jsonResponse);
+          console.log(jsonResponse)
+          self.cars=jsonResponse
           })
           .catch(function (error) {
             //this.errormessage = "Something went wrong"
             console.log(error);
             });
+          
 
     }
   },
+  
     searchCars(id) {
       router.push('/cars/' + id)
       
@@ -361,20 +391,44 @@ app.component('app-header', {
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                  <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+              <li v-if='!isLoggedIn' class="nav-item">
+                <router-link to="/" class="nav-link">Home</router-link>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Login</a>
+                <li v-if='!isLoggedIn' class="nav-item">
+                <router-link to="/login" class="nav-link">Login</router-link>
                 </li>
-                <li class="nav-item">
-                <a class="nav-link" href="#">Logout</a>
-              </li>
+                <li v-if='isLoggedIn' class="nav-item">
+                <router-link to="/explorepage" class="nav-link">Explore</router-link>
+                </li>
+                <li v-if='isLoggedIn' class="nav-item">
+                <router-link to="/cars/new" class="nav-link">Add Car</router-link>
+                </li>
+                <li v-if='isLoggedIn' class="nav-item">
+                <router-link v-bind:to="'/users/' + currentUser" class="nav-link">My Account</router-link>
+                </li>
+                <li v-if='isLoggedIn' class="nav-item">
+                <router-link to="/logout" class="nav-link">Logout</router-link>
+                </li>
+                <li v-if='!isLoggedIn' class="nav-item">
+                <router-link to="/register" class="nav-link">Register</router-link>
+                </li>
               </ul>
             </div>
           </nav>
       </header>    
   `,
+  computed:{
+    currentUser: function(){
+      return user
+    },
+    isLoggedIn: function(){
+      if (sessionStorage.getItem('token')){
+        return true
+      }else{
+        return false
+      }
+    }
+  },
   data: function() {
     return {};
   }

@@ -28,6 +28,7 @@
     <script src="{{ url_for('static', filename='js/vue.js') }}"></script>
     <script src="{{ url_for('static', filename='js/vue-router.js') }}"></script>
     <script>const token = "{{ csrf_token() }}";</script>
+    <script>const user = "{{ current_user.get_id() }}";</script>
     <script src="{{ url_for('static', filename='js/app.js') }}"></script>
     {% block js %} {% endblock%}
   </body>

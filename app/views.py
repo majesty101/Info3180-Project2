@@ -99,10 +99,11 @@ def login():
 @app.route('/api/auth/logout', methods=['POST'])
 @login_required
 def logout():
+    print('arrived')
     logout_user()
+    print('uers logged out')
     flash('Log out successful', 'danger')
-    app.send_static_file('index.html')
-    return json.jsonify(message="Log out successful")
+    return json.jsonify(status=200)
 
 @app.route('/api/cars',methods = ['GET','POST'])
 @requires_auth
@@ -160,13 +161,14 @@ def search():
     response = []
     arg1 = request.args.get('searchformake')
     arg2 = request.args.get('searchformodel')
-    if arg1 and arg2:
+    print (arg1,arg2)
+    if arg1 is not '' and arg2 is not '':
         one = arg1
         two = arg2
         cars = Cars.query.filter(and_(Cars.make == one, Cars.model==two)).all()
         for i in range(len(cars)):
             car = cars[i]
-            response.append({i:{'id':car.id,'description':car.description,'make':car.make,'model':car.model,'colour':car.colour,'year':car.year,'transmission':car.transmission,'car_type':car.car_type, 'price':car.price,'photo':car.photo,'user_id':car.user_id}})
+            response.append({'id':car.id,'description':car.description,'make':car.make,'model':car.model,'colour':car.colour,'year':car.year,'transmission':car.transmission,'car_type':car.car_type, 'price':car.price,'photo':car.photo,'user_id':car.user_id})
             
         return jsonify(response)
 
@@ -175,7 +177,7 @@ def search():
         cars = Cars.query.filter_by(make = make).all()
         for i in range(len(cars)):
             car = cars[i]
-            response.append({i:{'id':car.id,'description':car.description,'make':car.make,'model':car.model,'colour':car.colour,'year':car.year,'transmission':car.transmission,'car_type':car.car_type, 'price':car.price,'photo':car.photo,'user_id':car.user_id}})
+            response.append({'id':car.id,'description':car.description,'make':car.make,'model':car.model,'colour':car.colour,'year':car.year,'transmission':car.transmission,'car_type':car.car_type, 'price':car.price,'photo':car.photo,'user_id':car.user_id})
             
         return jsonify(response)
         
@@ -185,14 +187,13 @@ def search():
         cars = Cars.query.filter_by(model = model).all()
         for i in range(len(cars)):
             car = cars[i]
-            response.append({i:{'id':car.id,'description':car.description,'make':car.make,'model':car.model,'colour':car.colour,'year':car.year,'transmission':car.transmission,'car_type':car.car_type, 'price':car.price,'photo':car.photo,'user_id':car.user_id}})
+            response.append({'id':car.id,'description':car.description,'make':car.make,'model':car.model,'colour':car.colour,'year':car.year,'transmission':car.transmission,'car_type':car.car_type, 'price':car.price,'photo':car.photo,'user_id':car.user_id})
             
         return jsonify(response)
 
     else:
         print('none')
         flash("Please fill out at least one of the fields", 'danger')
-
 
 
 
