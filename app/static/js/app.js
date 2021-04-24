@@ -84,7 +84,9 @@ mounted() {
 const register = {
   name: 'register',
   template:`
+  <div>Logging out...</div>
   `
+  
 }
 const logout = {
   name: 'logout',
@@ -165,23 +167,39 @@ const explorepage={
   <div class="cars">
       <h2>Explore</h2>
       
-  </div>
-  <div class="form-group mx-sm-3 mb-2">
-        <label class="sr-only" for="search">Search</label>
-        <input type="search" name="search" v-model="searchTerm"
-        id="search" class="form-control mb-2 mr-sm-2" placeholder="Enter search term here" />
-        <input type="search" name="search" v-model="searchTerm"
-        id="search" class="form-control mb-2 mr-sm-2" placeholder="Enter search term here" />
-        <button class="btn btn-primary mb-2"
-          @click="searchCars">Search</button>
       </div>
-      <ul class="cars__list">
-        <li v-for="car in cars"
-        class="cars__item">{{ car.make }} {{car.model}}
-        <button class="btn btn-primary mb-2"
-        @click="searchCars(car.id)">View more Details</button></li>
-      </ul>`,
+  
+<form v-on:@submit.prevent="Viewdetails" methods="GET" name="searchform"  enctype="multipart/form-data">
+ <div class= form-group>
+  <textfield type="text" rows="3" cols="30" id="des" name=""></textfield>
+  <br/>
+  <br/>
+  <label for="make">Make</label><br/>
+  <input type="searchformake" name="searchformake" v-model="searchMake" />
+  <br/>
+  <br/>
+  <label for="model">Model</label><br/>
+  <input type="searchformodel" name="searchformodel" v-model="searchModel" />
+  <br/>
+  <br/>
+  
+  <button id="but" type="submit" name="submit">Submit</button>
+  </div>
+  </form>
+ 
 
+
+<ul class="cars__list">
+<li v-for="car in cars"
+
+class="cars__item">
+<img id="car-img" :src="'/static/uploads/' + car.photo" alt="car img"> 
+
+
+<button class="btn btn-primary mb-2"
+@click="cardetails(car.id)">View more Details</button>
+</li>
+</ul>`,
 
 created() {
   let self = this;
@@ -202,9 +220,38 @@ created() {
   },
 
   data() {
-    return { cars: [], searchTerm: ''
+    return { cars: [], searchformake: '',searchformodel: ''
     }
   },
+
+  methods:{
+    Viewdetails(){
+      let self=this;
+      let searchform= document.getElementById('searchform');
+      let form_data= new FormData(searchform);
+
+      fetch('/api/search?searchformake=' +self.searchMake+ '&searchformodel=' +self.searchModel, { 
+        
+        method: 'GET', body:form_data, 
+        headers: { 
+          'Authorization': 'Bearer ' + sessionStorage.getItem('token'), 'X-CRFToken': token
+        }
+      })
+      .then(function (response) {
+        return response.json();
+        })
+        .then(function (jsonResponse) {
+          self.cars=jsonResponse.response
+          console.log(jsonResponse);
+          })
+          .catch(function (error) {
+            //this.errormessage = "Something went wrong"
+            console.log(error);
+            });
+
+    }
+  },
+
   methods: {
     searchCars(id) {
       router.push('/cars/' + id)
@@ -217,16 +264,26 @@ created() {
 const Home = {
   name: 'Home',
   template: `
-  <div class="home">
-    <img src="/static/images/logo.png" alt="VueJS Logo">
-    <h1>{{ welcome }}</h1>
-  </div>
-  `,
-
-    data() {
-      return { welcome: 'Hello World! Welcome to VueJS'}
-    }
-  };
+  <div class= 'home-page'>
+    <div class ='main'>
+        <h2>Buy and Sell Cars Online</h2>
+        <p> United Auto Sales provides the fastest, easiest and most user friendly way to buy or sell cars online.
+        Find a Great Price and the Vehicle You Want </p>
+      <br>
+     <button id="reg_btn" @click="$router.push('register')" type="button" class="btn btn-success">Register</button>
+      <button id="login_btn" @click="$router.push('login')" type="button" class="btn btn-primary">Login</button>
+      <div class='home-img'>
+          <img src="/static/images/homepage_img.jpg" class="" alt="luxurycar">            
+      </div>  
+      
+     
+     </div>
+  </div> 
+  `, 
+  data(){
+    return{}
+  }
+};
 
   const app = Vue.createApp({
     data() {
