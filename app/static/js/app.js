@@ -89,26 +89,45 @@ const register = {
   </div> 
  
   <form @submit.prevent="registerUser" method="POST" enctype="multipart/form-data" id="register_form">
-  <div class="forms">
-      <label> Username </label><br>
-      <input type="text" name="username"><br>
-      <label> Password </label><br>
-      <input type="text" name="password"><br>
-      <label> Full Name </label><br>
-      <input type="text" name="name"><br>
+    <div class =registerform>
+      
+       <div class= "row">
+          <div class= "column">
+             <label> Username </label><br>
+             <input type="text" name="username"><br>
 
-      <label> Email </label><br>
-      <input type="text" name="email"><br>
+            </div> 
+          <div class="column">
+              <label> Password </label><br>
+              <input type="text" name="password"><br>
+          </div>
+        </div>  
+
+        <div class = "row">
+          <div class= "column">
+            <label> Full Name </label><br>
+            <input type="text" name="name"><br>
+            
+          </div>
+          <div class= "column">
+            <label> Email </label><br>
+            <input type="text" name="email"><br>
+          </div>
+        </div>
+
       <label> Location </label><br>
       <input type="text" name="location"><br>
+
       <label> Biography </label><br>
       <textarea name="biography"> </textarea><br>
+
       <label> Upload Photo: </label><br>
       <input type="file" name="photo">
-  </div>
-      <button class="btn btn-primary mb-2"> Register </button>
+    </div> 
+            <button class="btn btn-primary mb-2"> Register </button>
+    
   </form>
-  </div> 
+   
   `,
 
   methods: {
@@ -202,6 +221,87 @@ const users = {
 const cars = {
   name: 'newcar',
   template:`
+
+  <div class = "car-container">
+  <h2> Add New Car </h2>
+
+  <form v-on:submit.prevent="registerCar" method="POST" enctype="multipart/form-data" id="addcarForm">
+  <div class = "addcard">
+    <div class= "form-group">
+
+       <div class= "row">
+          <div class= "column">
+             <label> Make </label><br>
+             <input type="text" name="make"><br>
+
+            </div> 
+
+          <div class= "column">
+            <label> Model </label><br>
+            <input type="text" name="make"><br>
+
+           </div> 
+
+          
+        </div>
+        <div class="row">
+          <div class= "column">
+            <label> Colour </label><br>
+            <input type="text" name="make"><br>
+
+          </div> 
+
+          <div class= "column">
+            <label> Year </label><br>
+            <input type="text" name="make"><br>
+
+          </div>
+        </div>
+
+        <div class = "row">
+        <div class= "column">
+        <label> Price </label><br>
+        <input type="text" name="price"><br>
+
+
+        </div>
+        
+            <div class="column">
+                <label> Car Type </label><br>
+                <select name="cartype"> 
+                    <option value="SUV" placeholder="SUV"> SUV </option>
+                    <option value="CONVERTIBLE"> Convertable </option>
+                    <option value="HATCHBACK"> Hatchback </option>
+                    <option value="Coupe"> Coupe </option>
+                </select><br>
+            </div>
+            </div>
+
+    
+            <div class = "column">
+                <label> Transmission </label><br>
+                <select name="transmission"> 
+                    <option value=Automatic> Automatic </option>
+                    <option value=Manual> Manual </option>
+
+                </select><br>
+            </div>
+       
+
+        <label> Description </label><br>
+        <textarea name="description"> </textarea><br>
+
+        <label> Upload Photo: </label><br>
+        <input type="file" name="pic">
+
+    </div>
+    <div class = "carbtn">
+        <button class="btn btn-success" > Save </button>
+    </div>
+</div>
+</form>
+</div>
+
   `
 }
 
@@ -249,34 +349,51 @@ const explorepage={
       </div>
   
 <form @submit.prevent="Viewdetails" methods="GET" id="searchform"  enctype="multipart/form-data">
- <div class= form-group>
-  <textfield type="text" rows="3" cols="30" id="des" name=""></textfield>
-  <br/>
-  <br/>
-  <label for="make">Make</label><br/>
-  <input type="text" name="searchformake" v-model="searchMake" />
-  <br/>
-  <br/>
-  <label for="model">Model</label><br/>
-  <input type="text" name="searchformodel" v-model="searchModel" />
-  <br/>
-  <br/>
+  <div class= form-group>
+      <textfield type="text" rows="3" cols="30" id="des" name=""></textfield>
+       <br/>
+        <br/>
+      <label for="make">Make</label><br/>
+      <input type="text" name="searchformake" v-model="searchMake" />
+      <br/>
+      <br/>
+      <label for="model">Model</label><br/>
+      <input type="text" name="searchformodel" v-model="searchModel" />
+      <br/>
+      <br/>
   
-  <button id="but" type="submit" name="submit">Submit</button>
+      <button id="but" type="submit" name="submit">Submit</button>
   </div>
-  </form>
+</form>
  
 
 
 <ul class="cars__list">
 <li v-for="car in cars"
-
+   
 class="cars__item">
-<img id="car-img" :src="'/static/uploads/' + car.photo" alt="car img"> 
+    <div class="detailcard-group">
+      <div class="detailcard">
+
+        <img id="car-img" :src="'/static/uploads/' + car.photo" alt="car img"> 
+        <div class= "top">
+           <h5> {{car.year}} </h5>
+           <h5> {{car.make}} </h5>
+
+           <div class="price">
+                <img id = "price-tag" src = "/static/price-tag.png">
+                <p class="text"> {{car.price}}
+
+            </div>  
+          </div>
+          <p class="text"> {{car.model}}
+      </div>
 
 
-<button class="btn btn-primary mb-2"
-@click="searchCars(car.id)">View more Details</button>
+
+      <button class="btn btn-primary mb-2"@click="searchCars(car.id)">View more Details</button>
+    </div>
+   
 </li>
 </ul>`,
 
@@ -350,7 +467,7 @@ const Home = {
         Find a Great Price and the Vehicle You Want </p>
       <br>
      <button id="reg_btn" @click="$router.push('register')" type="button" class="btn btn-success">Register</button>
-      <button id="login_btn" @click="$router.push('login')" type="button" class="btn btn-primary">Login</button>
+     <button id="login_btn" @click="$router.push('login')" type="button" class="btn btn-primary">Login</button>
       <div class='home-img'>
           <img src="/static/images/homepage_img.jpg" class="" alt="luxurycar">            
       </div>  

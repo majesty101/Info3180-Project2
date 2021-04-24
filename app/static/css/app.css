@@ -1,6 +1,20 @@
 body {
     padding-top: 5rem;
 }
+/*Home */
+.main{
+    position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 400px;
+	height: 350px;
+	padding: 80px 40px;
+	background: rgba(253, 253, 253, 0.7);
+    align-items: center;
+    justify-content: center;
+
+}
 
 footer  {
     padding-top: 20px;
