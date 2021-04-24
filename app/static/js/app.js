@@ -84,10 +84,61 @@ mounted() {
 const register = {
   name: 'register',
   template:`
-  <div>Logging out...</div>
-  `
-  
-}
+  <div id="new_user">
+  <h2> Registration </h2>
+  </div> 
+ 
+  <form @submit.prevent="registerUser" method="POST" enctype="multipart/form-data" id="register_form">
+  <div class="forms">
+      <label> Username </label><br>
+      <input type="text" name="username"><br>
+      <label> Password </label><br>
+      <input type="text" name="password"><br>
+      <label> Full Name </label><br>
+      <input type="text" name="name"><br>
+
+      <label> Email </label><br>
+      <input type="text" name="email"><br>
+      <label> Location </label><br>
+      <input type="text" name="location"><br>
+      <label> Biography </label><br>
+      <textarea name="biography"> </textarea><br>
+      <label> Upload Photo: </label><br>
+      <input type="file" name="photo">
+  </div>
+      <button class="btn btn-primary mb-2"> Register </button>
+  </form>
+  </div> 
+  `,
+
+  methods: {
+    registerUser(){
+        let self = this;
+        let register_Form = document.getElementById('register_form');
+        let userData = new FormData(register_Form);
+        fetch("/api/register", {
+            method: 'POST',
+            body: userData,
+            headers: {
+                'X-CSRFToken': token
+                 },
+          credentials: 'same-origin'
+           })
+            .then(function (response) {
+            return response.json();
+            })
+            .then(function (jsonResponse) {
+            console.log(jsonResponse);
+            router.push('login')
+            })
+            .catch(function (error) {
+            console.log(error);
+            });
+
+        }
+},  
+
+};
 const logout = {
   name: 'logout',
   template:`
@@ -169,17 +220,17 @@ const explorepage={
       
       </div>
   
-<form v-on:@submit.prevent="Viewdetails" methods="GET" name="searchform"  enctype="multipart/form-data">
+<form @submit.prevent="Viewdetails" methods="GET" id="searchform"  enctype="multipart/form-data">
  <div class= form-group>
   <textfield type="text" rows="3" cols="30" id="des" name=""></textfield>
   <br/>
   <br/>
   <label for="make">Make</label><br/>
-  <input type="searchformake" name="searchformake" v-model="searchMake" />
+  <input type="text" name="searchformake" v-model="searchMake" />
   <br/>
   <br/>
   <label for="model">Model</label><br/>
-  <input type="searchformodel" name="searchformodel" v-model="searchModel" />
+  <input type="text" name="searchformodel" v-model="searchModel" />
   <br/>
   <br/>
   
@@ -197,7 +248,7 @@ class="cars__item">
 
 
 <button class="btn btn-primary mb-2"
-@click="cardetails(car.id)">View more Details</button>
+@click="searchCars(car.id)">View more Details</button>
 </li>
 </ul>`,
 
@@ -232,7 +283,7 @@ created() {
 
       fetch('/api/search?searchformake=' +self.searchMake+ '&searchformodel=' +self.searchModel, { 
         
-        method: 'GET', body:form_data, 
+        method: 'GET',
         headers: { 
           'Authorization': 'Bearer ' + sessionStorage.getItem('token'), 'X-CRFToken': token
         }
@@ -251,14 +302,12 @@ created() {
 
     }
   },
-
-  methods: {
     searchCars(id) {
       router.push('/cars/' + id)
       
 
     }
-  }
+
 };
 
 const Home = {
@@ -293,7 +342,8 @@ const Home = {
           'explorepage': explorepage,
           'users/UID': users,
           'cars/CID':car_id,
-          'loginPages' : Login
+          'loginPages' : Login,
+          'register': register
         }
       }
     }
@@ -315,8 +365,11 @@ app.component('app-header', {
                   <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#"></a>
+                  <a class="nav-link" href="#">Login</a>
                 </li>
+                <li class="nav-item">
+                <a class="nav-link" href="#">Logout</a>
+              </li>
               </ul>
             </div>
           </nav>

@@ -60,6 +60,7 @@ def register():
     form = RegisterForm()
     current_dt = datetime.now()
     if form.validate_on_submit():
+        print('ONE')
         image = form.photo.data
         filename = secure_filename(image.filename)
         user = Users(username = form.username.data, password = form.password.data, name = form.name.data,
@@ -72,7 +73,6 @@ def register():
         return json.jsonify(username = form.username.data, name = form.name.data, photo = filename,
         email = form.email.data, location = form.location.data, biography = form.biography.data,
         date_joined = current_dt.strftime("%Y-%m-%d " + "%X"))
-        
 
 @app.route('/api/auth/login', methods=['POST'])
 def login():
@@ -157,38 +157,40 @@ def favourite(car_id):
 @app.route('/api/search', methods = ['GET'])
 @requires_auth
 def search():
-    form = SearchForm()
     response = []
-    if form.make.data and form.model.data:
-        one = form.make.data
-        two = form.model.data
-        cars = Cars.query.filter_by(and_(make=one, model=two))
+    arg1 = request.args.get('searchformake')
+    arg2 = request.args.get('searchformodel')
+    if arg1 and arg2:
+        one = arg1
+        two = arg2
+        cars = Cars.query.filter(and_(Cars.make == one, Cars.model==two)).all()
         for i in range(len(cars)):
             car = cars[i]
             response.append({i:{'id':car.id,'description':car.description,'make':car.make,'model':car.model,'colour':car.colour,'year':car.year,'transmission':car.transmission,'car_type':car.car_type, 'price':car.price,'photo':car.photo,'user_id':car.user_id}})
-          
+            
         return jsonify(response)
-    
-    elif form.make.data:
-        make = form.make.data
-        cars = Cars.query.filter_by(make = make)
+
+    elif arg1:
+        make = arg1
+        cars = Cars.query.filter_by(make = make).all()
         for i in range(len(cars)):
             car = cars[i]
             response.append({i:{'id':car.id,'description':car.description,'make':car.make,'model':car.model,'colour':car.colour,'year':car.year,'transmission':car.transmission,'car_type':car.car_type, 'price':car.price,'photo':car.photo,'user_id':car.user_id}})
-          
+            
         return jsonify(response)
         
-    
-    elif form.model.data:
-        model = form.model.data
-        cars = Cars.query.filter_by(model = model)
+
+    elif arg2:
+        model = arg2
+        cars = Cars.query.filter_by(model = model).all()
         for i in range(len(cars)):
             car = cars[i]
             response.append({i:{'id':car.id,'description':car.description,'make':car.make,'model':car.model,'colour':car.colour,'year':car.year,'transmission':car.transmission,'car_type':car.car_type, 'price':car.price,'photo':car.photo,'user_id':car.user_id}})
-          
+            
         return jsonify(response)
 
     else:
+        print('none')
         flash("Please fill out at least one of the fields", 'danger')
 
 
