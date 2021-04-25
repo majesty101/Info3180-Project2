@@ -192,6 +192,41 @@ const users = {
   <div class="user-profile">
     <h2>User {{user.id}}</h2>
   </div>
+
+  <div class = "profile-header">
+      <img id="profile-pic" :src="'/static/uploads/' + user.photo" alt="New User Image" class = "profile-image"> 
+  </div>
+
+  <div class="profile-body">
+    <div class="column">
+      <p class = "user-name">{{user.name}}</p>   
+      <p class = "user_at"> @{{user.username}} </p> 
+  </div> 
+
+  <p class = "profile-text"> {{user.biography}} </p> <br>
+                
+  <div class = "column">
+    <div class = "row">
+      <p class = "profile-text">Email:</p>
+      <p class="profile-info"> {{user.email}} </p> <br>
+  </div>
+
+  <div class = "row">
+    <p class = "profile-text">Location:</p>
+    <p class="profile-info"> {{user.location}} </p> <br>
+  </div>
+
+  <div class = "row">
+    <p class = "profile-text">Joined:</p>
+    <p class="profile-info"> {{user.date_joined}} </p> <br>
+  </div>
+
+      </div>
+    </div>
+  </div>
+             
+  <h2 class="fav-cars"> Cars Favourited </h2>
+
   `,
   created() {
     let self = this;
@@ -312,6 +347,59 @@ const car_id = {
   <h1 v-if="car">{{car.id}}</h1>
     <p> {{ car.make }} {{ car.model }} </p>
   </div>
+
+  <div>
+  <div class="cars-container">
+      <div class="car_info">
+          <div class="img-box">
+              <img id="car-pic" :src="'/static/uploads/' + photo" alt="Pic of car" class="car-image"> 
+          </div>
+
+          <div class = "car-body">
+              <div class = "year-of-model">
+                      <h2 class = "car-title">  {{ year }}  {{ make }} </h2> <br> 
+              </div>
+
+              <p class="car-model"> {{model}} </p>  
+              <p class="car-text"> {{description}} </p>
+
+              <div class = "row">
+                  <div class = "column">
+                      <label>Colour</label>
+                      <p class="car-text"> {{colour}} </p> <br>
+                  </div>
+                  <div class = "column">
+                      <label>Body Type</label>
+                      <p class="car-text"> {{car_type}} </p> <br>
+                  </div>
+              </div>
+
+              <div class = "row">
+                  <div class = "column">
+                      <label>Price</label>
+                      <p class="car-text"> {{price}} </p> <br>
+                  </div>
+
+                  <div class = "column">
+                      <label>Transmission</label>
+                      <p class="car-text"> {{transmission}} </p> <br>
+                  </div>
+
+              </div>
+              <div class = "car-btns">
+                  <button class="btn" > Email Owner </button>
+                  <button v-if="faved" type="button" class="btn-circle">
+                      <img src="/static/heart.png"> 
+                  </button>
+                  <button v-else" @click="favouritecar(car.id)" type = "button" class="btn-circle" >  
+                      <img src="/static/outline.png"> 
+                  </button>
+              </div>
+
+          </div>
+      </div>
+  </div>
+</div>
   `,
   created() {
     let self = this;
