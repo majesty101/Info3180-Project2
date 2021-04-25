@@ -106,6 +106,7 @@ def logout():
     return json.jsonify(status=200)
 
 @app.route('/api/cars',methods = ['GET','POST'])
+
 @requires_auth
 def cars():
     form = NewCar()
@@ -141,7 +142,7 @@ def carDetails(car_id):
 
 
 
-@app.route('/api/cars/<car_id>/favourite', methods = ['POST'])
+@app.route('/api/cars/<car_id>/favourite', methods = ['GET'])
 @requires_auth
 def favourite(car_id):
     print('gotin')

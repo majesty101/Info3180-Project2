@@ -478,12 +478,12 @@ const car_id = {
       favouritecar(id){
         fetch('/api/cars/' + id + '/favourite',
         {
-          method: 'POST',
+          method: 'GET',
           headers: { 
             'Authorization': 'Bearer ' + sessionStorage.getItem('token'), 'X-CRFToken': token
-          },
-          credentials: 'same-origin'
+          }
         })
+      
         .then(function (response) {
           return response.json();
           })
