@@ -223,13 +223,39 @@ const users = {
 
       </div>
     </div>
-  </div>
              
   <h2 class="fav-cars"> Cars Favourited </h2>
+  <div class = "row">
 
-  `,
+
+<ul class="cars__list">
+<li v-for="car in cars" class="cars__item">
+    <div class="detailcard-group">
+      <div class="detailcard">
+        <img id="car-img" :src="'/static/uploads/' + car.photo" alt="car img"> 
+        <div class= "top">
+           <h5> {{car.year}} </h5>
+           <h5> {{car.make}} </h5>
+           <div class="price">
+                <img id = "price-tag" src = "/static/price-tag.png">
+                <p class="text"> {{car.price}} </p>
+            </div>  
+          </div>
+          <p class="text"> {{car.model}} </p>
+      </div>
+    </div>
+    
+</li>
+</ul>
+</div>
+  `, 
+  data() {
+    return { user: [], cars: []
+    }
+  },
   created() {
     let self = this;
+    this.getFavs()
     fetch('/api/users/' + self.$route.params.UID,
     {
       method: 'GET',
@@ -246,11 +272,35 @@ const users = {
       console.log(data)
       self.user = data
       });
+
     },
-    data() {
-      return { user: []
-      }
+
+    methods:{
+      getFavs: function(){
+        let self=this;
+        
+        fetch('/api/users/' + user + '/favourites',{ 
+          
+          method: 'GET',
+          headers: { 
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token'), 'X-CRFToken': token
+          }
+        })
+        .then(function (response) {
+          return response.json();
+          })
+          .then(function (data) {
+            self.cars=data
+            })
+            .catch(function (error) {
+              //this.errormessage = "Something went wrong"
+              console.log(error);
+              });
+      },
+
+      
     },
+
 }
 
 const cars = {
@@ -391,7 +441,7 @@ const car_id = {
                   <button v-if="faved" type="button" class="btn-circle">
                       <img src="/static/heart.png"> 
                   </button>
-                  <button v-else" @click="favouritecar(car.id)" type = "button" class="btn-circle" >  
+                  <button v-else" @click="favouritecar(car.id)" type = "submit" class="btn-circle" >  
                       <img src="/static/outline.png"> 
                   </button>
               </div>
@@ -424,6 +474,30 @@ const car_id = {
       return { car: []
       }
     },
+    methods: {
+      favouritecar(id){
+        fetch('/api/cars/' + id + '/favourite',
+        {
+          method: 'POST',
+          headers: { 
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token'), 'X-CRFToken': token
+          },
+          credentials: 'same-origin'
+        })
+        .then(function (response) {
+          return response.json();
+          })
+          .then(function (jsonResponse) {
+            
+            console.log(jsonResponse)
+            })
+            .catch(function (error) {
+              //this.errormessage = "Something went wrong"
+              console.log(error);
+              });
+  
+      }
+    }
     
 }
 
@@ -513,7 +587,7 @@ created() {
   methods:{
     Viewdetails(){
       let self=this;
-      
+
       fetch('/api/search?searchformake=' +self.searchMake+ '&searchformodel=' +self.searchModel, { 
         
         method: 'GET',
@@ -534,14 +608,17 @@ created() {
             });
           
 
-    }
-  },
-  
+    },
     searchCars(id) {
       router.push('/cars/' + id)
       
 
-    }
+    },
+    
+
+  },
+  
+
 
 };
 

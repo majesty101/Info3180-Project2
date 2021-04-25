@@ -141,10 +141,11 @@ def carDetails(car_id):
 
 
 
-@app.route('/api/cars/<car_id>/favourite',methods = ['POST'])
+@app.route('/api/cars/<car_id>/favourite', methods = ['POST'])
 @requires_auth
 def favourite(car_id):
-    user_id = 1 # place holder
+    print('gotin')
+    user_id = current_user.get_id() # place holder
     fav = Favourites(car_id,user_id)
     try:
         db.session.add(fav)
@@ -161,8 +162,7 @@ def search():
     response = []
     arg1 = request.args.get('searchformake')
     arg2 = request.args.get('searchformodel')
-    print (arg1,arg2)
-    if arg1 is not '' and arg2 is not '':
+    if arg1 and arg2:
         one = arg1
         two = arg2
         cars = Cars.query.filter(and_(Cars.make == one, Cars.model==two)).all()
@@ -207,10 +207,11 @@ def userDetails(user_id):
 @app.route('/api/users/<user_id>/favourites', methods=['GET'])
 @requires_auth
 def usersFav(user_id):
-    fav=Favourites.query.get(user_id)
-    carmodel= Cars.query.get(user_id)
-
-    response ={'id':fav.id, 'car_id': fav.car_id, 'user_id':fav.user_id, 'description':carmodel.description, 'make':carmodel.make, 'model': carmodel.model, 'colour':carmodel.colour, 'year':carmodel.year, 'transmission':carmodel.transmission, 'car_type':carmodel.car_type, 'price':carmodel.price,'photo':carmodel.photo }
+    response = []
+    cars = db.session.query(Favourites, Cars).select_from(Cars).join(Favourites).filter(Favourites.user_id==user_id).all()
+    for fav, car in cars:
+        print(car.id)
+        response.append({'id':car.id,'description':car.description, 'make':car.make, 'model': car.model, 'colour':car.colour, 'year':car.year, 'transmission':car.transmission, 'car_type':car.car_type, 'price':car.price,'photo':car.photo} )
     return jsonify(response)
 
 
@@ -259,6 +260,11 @@ def page_not_found(error):
     """Custom 404 page."""
     return render_template('404.html'), 404
 
+@app.route('/uploads/<filename>')
+def get_image(filename):
+    root_dir = os.getcwd()
+    return send_from_directory(os.path.join(root_dir,app.config['UPLOAD_FOLDER']),filename)
 
+    
 if __name__ == '__main__':
     app.run(debug=True, host="0.0.0.0", port="8080")

@@ -31,15 +31,6 @@ class Cars(db.Model):
 
 
 
-class Favourites(db.Model):
-    id=db.Column(db.Integer, primary_key=True)
-    car_id=db.Column(db.Integer)
-    user_id=db.Column(db.Integer)
-
-
-    def __init__(self, car_id, user_id):
-        self.car_id=car_id
-        self.user_id=user_id
 
 class Users(db.Model):
     id=db.Column(db.Integer, primary_key=True)
@@ -80,3 +71,12 @@ class Users(db.Model):
     def __repr__(self):
         return '<User %r>' % (self.username)
 
+class Favourites(db.Model):
+    id=db.Column(db.Integer, primary_key=True)
+    car_id=db.Column(db.Integer,db.ForeignKey(Cars.id))
+    user_id=db.Column(db.Integer,db.ForeignKey(Users.id))
+
+
+    def __init__(self, car_id, user_id):
+        self.car_id=car_id
+        self.user_id=user_id
