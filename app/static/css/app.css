@@ -158,3 +158,148 @@ footer  {
     font-size: 12px;
     line-height: 1.42857;
 }
+
+.main p{
+	margin: 0;
+	padding: 0;
+	color: rgb(2, 0, 0);
+    text-align: left;
+}
+
+.main h2{
+	margin: 0;
+	padding: 0 0 20px;
+	color: rgb(0, 0, 0);
+	text-align: left;
+
+}
+
+#login_btn{
+    min-width:90px;
+}
+
+.btns {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+}
+
+#reg_btn{
+    min-width:90px;
+    align-self: center;
+	margin-right: 0.5em;
+}
+
+.homepage-img{
+	position: fixed;
+	top: 30%;
+	left: 70%;
+	transform: translate(-50%, -50%);
+	width: 500px;
+	height: 800px;
+	padding: 60px 30px;
+}
+
+
+/*Explore Page*/
+.cars{
+	margin: auto;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	
+}
+
+.explore-card label{
+	color: rgb(65, 64, 64);
+	font-weight: bold;
+}
+
+.explore-card h2{
+	font-weight: bold;
+	padding-bottom: 20px;
+	text-align: left;
+}
+
+.explore-card{
+	border: 2px solid ;
+    border-color: #E2E8F0;
+    border-radius: 5px;
+    box-shadow: 5px 7px 5px #dee1e4;
+    width: 700px;
+	padding: 10px 30px;
+	margin-bottom: 50px;
+}
+
+
+.explore-card button{
+	min-width:90px;
+	display: flex;
+    justify-content: center;
+	margin-right: 0.5em;
+  
+    
+}
+.explore-btn{
+	padding-bottom: 20px;
+}
+
+.car__list{
+	margin-left: 150px;
+}
+.cars__item{
+	list-style-type: none;
+	display: inline-block;
+	width: 270px;
+	padding-left: 50px;
+}
+
+#price-tag{
+	width: 15px;
+	height:15px;
+}
+
+
+/*Add Car*/
+.addcard{
+	margin: auto;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+.form-groupcar label{
+	color: rgb(65, 64, 64);
+	font-weight: bold;
+}
+
+.addcard h2{
+	font-weight: bold;
+	padding-bottom: 20px;
+}
+.form-groupcar{
+	border: 2px solid ;
+    border-color: #E2E8F0;
+    border-radius: 5px;
+    box-shadow: 5px 7px 5px #dee1e4;
+    width: 700px;
+	padding: 10px 20px;
+	margin-bottom: 50px;
+}
+
+.addcard btn{
+	border-radius: 5px;
+    padding: 20px 195px;
+    text-decoration: none;
+    text-align: center;
+    margin: auto auto auto auto;
+    color: white;
+    text-transform: uppercase;
+	align-self: center;
+	display: flex;
+	justify-content: center;
+	padding-top: 5px;
+}
+
+.form-groupcar .row{
+	
+}
