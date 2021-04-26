@@ -1,21 +1,353 @@
 body {
     padding-top: 5rem;
 }
+
+/* Login*/
+.login-container{
+	margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+	
+    margin-right: -50%;
+    
+}
+
+.login-container h2{
+	padding-bottom: 25px;
+	font-weight: bold;
+	display: flex;
+	justify-content: center;
+}
+.logincard label{
+	padding: 10px;
+	color: rgb(65, 64, 64);
+	font-weight: bold;
+}
+.logincard{
+	padding-bottom: 20px;
+	border: 2px solid ;
+    border-color: #E2E8F0;
+    border-radius: 5px;
+    width: 500px;
+	padding: 20px, 10px;
+	
+}
+
+.form-group{
+	font-size: large;
+	padding:30px;
+}
+
+
 /*Home */
 .main{
     position: fixed;
 	top: 50%;
-	left: 50%;
+	left: 30%;
 	transform: translate(-50%, -50%);
 	width: 400px;
 	height: 350px;
 	padding: 80px 40px;
 	background: rgba(253, 253, 253, 0.7);
-    align-items: center;
-    justify-content: center;
+    align-items: left;
+    justify-content: left;
 
 }
+
+.main p{
+	margin: 0;
+	padding: 0;
+	color: rgb(2, 0, 0);
+    text-align: left;
+}
+
+.main h2{
+	margin: 0;
+	padding: 0 0 20px;
+	color: rgb(0, 0, 0);
+	text-align: left;
+
+}
+
+#login_btn{
+    min-width:90px;
+}
+
+
+#reg_btn{
+    min-width:90px;
+    align-self: center;
+	margin-right: 0.5em;
+}
+
+.homepage-img{
+	position: fixed;
+	top: 30%;
+	left: 70%;
+	transform: translate(-50%, -50%);
+	width: 500px;
+	height: 800px;
+	padding: 60px 30px;
+}
+
 
 footer  {
     padding-top: 20px;
 }
+
+/* USER PAGE */
+.user-profile h2{
+	padding: 20px;
+}
+
+#profile-pic{
+	height: 200px;
+	width: 200px;
+	border-radius: 35%;
+}
+
+.profile-header{
+	display: flex;
+	flex-direction: row;
+	border: 2px solid ;
+    border-color: #ced7e2;
+    border-radius: 5px;
+    box-shadow: 6px 8px 6px #d8dee4;
+    width: 700px;
+	padding: 20px, 10px;
+}
+
+.profile-header label{
+	color: rgb(65, 62, 62);
+	font-weight: bold;
+}
+
+.user-body{
+	margin: auto;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+.user-name{
+	display: flex;
+	flex-direction: row;
+	font-size: xx-large;
+}
+
+.user-at{
+	padding-left: 10px;
+}
+
+.navbar-default .navbar-brand {
+    color: #777;
+}
+
+.profile-body{
+	padding-left: 20px;
+}
+
+.user-at{
+	padding-top: 0px;
+	margin-top:0px;
+	font-size: x-large;
+	color:#73787c;
+}
+
+.profile-info{
+	color:black;
+	margin-left: 5px;
+	font-weight: 486px;
+}
+
+.navbar-default {
+    background-color: #fffdfd;
+    border-color: #E7E7E7;
+}
+
+.fav-cars{
+	text-align: left;
+}
+
+.price{
+	padding:5px;
+	display:flex;
+	background-color:#18b683;
+	border-radius: 10px;
+	color: white;
+}
+
+#price-tag{
+	margin-right:5px;
+}
+
+
+/* CAR ID */
+.cars-container {
+	display: flex;
+	justify-content: center;
+}
+
+.car-info{
+	border: 2px solid ;
+    border-color: #e2e8f0;
+    border-radius: 5px;
+    box-shadow: 5px 7px 5px #e6e8eb;
+    width: 700px;
+	padding: 21px, 11px;
+}
+
+.car-info label{
+	color: rgb(65, 64, 64);
+	font-weight: bold;
+}
+
+.year-of-model {
+	display: flex;
+	justify-content: flex-start;
+}
+
+.car-model{
+	color: rgb(119, 118, 118);
+	font-weight: 700;
+}
+
+
+.carinfobtns{
+	justify-content: space-between;
+	display: flex;
+}
+
+.car-btns img{
+	height: 20px;
+	width: 20px;
+
+}
+
+.btn-circle {
+    width: 40px;
+    height: 40px;
+    padding: 6px 0px;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.42857;
+}
+
+
+/*Explore Page*/
+.cars{
+	margin: auto;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	
+}
+
+.explore-card label{
+	color: rgb(65, 64, 64);
+	font-weight: bold;
+}
+
+.explore-card h2{
+	font-weight: bold;
+	padding-bottom: 20px;
+	text-align: left;
+}
+
+
+
+.explore-card{
+	border: 2px solid ;
+    border-color: #E2E8F0;
+    border-radius: 5px;
+    box-shadow: 5px 7px 5px #dee1e4;
+    width: 700px;
+	padding: 10px 30px;
+	margin-bottom: 50px;
+}
+
+
+.explore-card button{
+	min-width:90px;
+	display: flex;
+    justify-content: center;
+	margin-right: 0.5em;
+  
+    
+}
+#but{
+	padding-bottom: 10px;
+}
+
+.car__list{
+	margin-left: 150px;
+}
+.cars__item{
+	list-style-type: none;
+	display: inline-block;
+	width: 270px;
+	padding-left: 50px;
+}
+
+#price-tag{
+	width: 15px;
+	height:15px;
+}
+
+
+/*Add Car*/
+.addcard{
+	margin: auto;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+.form-groupcar label{
+	color: rgb(65, 64, 64);
+	font-weight: bold;
+}
+
+.addcard h2{
+	font-weight: bold;
+	padding-bottom: 20px;
+}
+.form-groupcar{
+	border: 2px solid ;
+    border-color: #E2E8F0;
+    border-radius: 5px;
+    box-shadow: 5px 7px 5px #dee1e4;
+    width: 700px;
+	padding: 10px 20px;
+	margin-bottom: 50px;
+}
+
+.addcard btn{
+	border-radius: 5px;
+    padding: 20px 195px;
+    text-decoration: none;
+    text-align: center;
+    margin: auto auto auto auto;
+    color: white;
+    text-transform: uppercase;
+	align-self: center;
+	display: flex;
+	justify-content: center;
+	padding-top: 5px;
+}
+
+.form-groupcar .row{
+	
+}
+
+.addcard label{
+	color: rgb(65, 64, 64);
+	font-weight: bold;
+}
+
+/*Register*/
+
+
+
+
