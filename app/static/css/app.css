@@ -5,16 +5,58 @@ body {
 .main{
     position: fixed;
 	top: 50%;
-	left: 50%;
+	left: 30%;
 	transform: translate(-50%, -50%);
 	width: 400px;
 	height: 350px;
 	padding: 80px 40px;
 	background: rgba(253, 253, 253, 0.7);
-    align-items: center;
-    justify-content: center;
+    align-items: left;
+    justify-content: left;
 
 }
+
+.main p{
+	margin: 0;
+	padding: 0;
+	color: rgb(2, 0, 0);
+    text-align: left;
+}
+
+.main h2{
+	margin: 0;
+	padding: 0 0 20px;
+	color: rgb(0, 0, 0);
+	text-align: left;
+
+}
+
+#login_btn{
+    min-width:90px;
+}
+
+.btns {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+}
+
+#reg_btn{
+    min-width:90px;
+    align-self: center;
+	margin-right: 0.5em;
+}
+
+.homepage-img{
+	position: fixed;
+	top: 30%;
+	left: 70%;
+	transform: translate(-50%, -50%);
+	width: 500px;
+	height: 800px;
+	padding: 60px 30px;
+}
+
 
 footer  {
     padding-top: 20px;
@@ -159,46 +201,6 @@ footer  {
     line-height: 1.42857;
 }
 
-.main p{
-	margin: 0;
-	padding: 0;
-	color: rgb(2, 0, 0);
-    text-align: left;
-}
-
-.main h2{
-	margin: 0;
-	padding: 0 0 20px;
-	color: rgb(0, 0, 0);
-	text-align: left;
-
-}
-
-#login_btn{
-    min-width:90px;
-}
-
-.btns {
-    display: flex;
-    justify-content: center;
-    padding-top: 20px;
-}
-
-#reg_btn{
-    min-width:90px;
-    align-self: center;
-	margin-right: 0.5em;
-}
-
-.homepage-img{
-	position: fixed;
-	top: 30%;
-	left: 70%;
-	transform: translate(-50%, -50%);
-	width: 500px;
-	height: 800px;
-	padding: 60px 30px;
-}
 
 
 /*Explore Page*/
@@ -303,3 +305,5 @@ footer  {
 .form-groupcar .row{
 	
 }
+
+
