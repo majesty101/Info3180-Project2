@@ -1,7 +1,7 @@
 const Login = {
   name: 'loginPage',
   template:`
-  <div>
+  <div class="login-container">
   <h2> {{displayTitle}} </h2>
   <form @submit.prevent="login" method="post" id="loginForm">
 
@@ -10,18 +10,16 @@ const Login = {
           <ul>
               <li v-for = "showError in errors"> {{showError}} </li>
           </ul>
-      </div>         
-      <div class="form-group">
-          <label for ="username" class="form-control-label">Username</label>
-          <input type="text" class="form-control" name="username">
       </div>
-
-      <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" class="form-control" name="password">
+      <div class="logincard">
+          <div class="form-group">
+              <label for ="username" class="form-control-label">Username</label>
+              <input type="text" class="form-control" name="username">
+              <label for="password">Password</label>
+              <input type="password" class="form-control" name="password">
+              <button type="submit"  class="btn btn-primary">Login</button>
+              </div>
       </div>
-      
-      <button type="submit"  class="btn btn-primary">Login</button>
   </form>
 </div>
 `,
@@ -84,32 +82,31 @@ mounted() {
 const register = {
   name: 'register',
   template:`
-  <div id="new_user">
-  <h2> Registration </h2>
-  </div> 
- 
-  <form @submit.prevent="registerUser" method="POST" enctype="multipart/form-data" id="register_form">
-    <div class =registerform>
+  
+  <div class="new_user">
+    <h2>Register New User</h2>   
+    <form @submit.prevent="registerUser" method="POST" enctype="multipart/form-data" id="register_form">
+      <div class = "registerform">
       
        <div class= "row">
-          <div class= "column">
+          <div class= "column1">
              <label> Username </label><br>
              <input type="text" name="username"><br>
 
             </div> 
-          <div class="column">
+          <div class="column2">
               <label> Password </label><br>
               <input type="text" name="password"><br>
           </div>
         </div>  
 
         <div class = "row">
-          <div class= "column">
+          <div class= "column1">
             <label> Full Name </label><br>
             <input type="text" name="name"><br>
             
           </div>
-          <div class= "column">
+          <div class= "column2">
             <label> Email </label><br>
             <input type="text" name="email"><br>
           </div>
@@ -119,14 +116,16 @@ const register = {
       <input type="text" name="location"><br>
 
       <label> Biography </label><br>
-      <textarea name="biography"> </textarea><br>
+      <textarea rows="4" id="bio" name="biography"> </textarea><br>
 
       <label> Upload Photo: </label><br>
-      <input type="file" name="photo">
+      <input id="browse" type="file" name="photo"> <br>
+      <button class="btn btn-primary mb-2"> Register </button>
+
     </div> 
-            <button class="btn btn-primary mb-2"> Register </button>
     
   </form>
+</div>
    
   `,
 
@@ -642,13 +641,12 @@ const Home = {
         <h2>Buy and Sell Cars Online</h2>
         <p> United Auto Sales provides the fastest, easiest and most user friendly way to buy or sell cars online.
         Find a Great Price and the Vehicle You Want </p>
-      <br>
-     <button id="reg_btn" @click="$router.push('register')" type="button" class="btn btn-success">Register</button>
-     <button id="login_btn" @click="$router.push('login')" type="button" class="btn btn-primary">Login</button>
-     </div>
-     <div class='home-img'>
-     <img src="/static/homepage-img.jpg" class="homepage-img" alt="luxurycar">            
- </div> 
+        <button id="reg_btn" @click="$router.push('register')" type="button" class="btn btn-success">Register</button>
+        <button id="login_btn" @click="$router.push('login')" type="button" class="btn btn-primary">Login</button>
+    </div>
+    <div class='home-img'>
+      <img src="/static/homepage-img.jpg" class="homepage-img" alt="luxurycar">            
+    </div> 
   </div> 
   `, 
   data(){

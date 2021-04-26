@@ -1,66 +1,165 @@
 body {
     padding-top: 5rem;
+	background-color: rgb(240, 240, 240);
 }
+label{
+	font-weight: 600;
+	margin-top: 10px;
+}
+
 /*Home */
+
 .main{
-    position: fixed;
-	top: 50%;
-	left: 30%;
-	transform: translate(-50%, -50%);
-	width: 400px;
-	height: 350px;
-	padding: 80px 40px;
-	background: rgba(253, 253, 253, 0.7);
-    align-items: left;
-    justify-content: left;
-
+	padding: 100px;
 }
-
 .main p{
-	margin: 0;
-	padding: 0;
-	color: rgb(2, 0, 0);
+	color: rgb(61, 61, 61);
+	padding: 0 0 20px;
+	width: 390px;
     text-align: left;
 }
 
 .main h2{
-	margin: 0;
+	width: 200px;
 	padding: 0 0 20px;
 	color: rgb(0, 0, 0);
 	text-align: left;
+	font-weight: 700;
 
 }
 
 #login_btn{
     min-width:90px;
-}
-
-.btns {
-    display: flex;
-    justify-content: center;
-    padding-top: 20px;
+	width: 130px;
 }
 
 #reg_btn{
     min-width:90px;
     align-self: center;
 	margin-right: 0.5em;
+	width: 130px;
 }
 
-.homepage-img{
-	position: fixed;
-	top: 30%;
-	left: 70%;
-	transform: translate(-50%, -50%);
-	width: 500px;
-	height: 800px;
-	padding: 60px 30px;
+.home-page{
+	display: flex;
+
 }
 
 
-footer  {
+.home-img{
+	max-width: 1200px;
+	overflow: hidden;
+}
+
+footer{
     padding-top: 20px;
 }
+
+/*Login*/
+.login-container{
+	display: flex;
+    align-items: center;
+    flex-direction: column;
+	padding: 100px;
+
+}
+
+.login-container h2{
+	margin-left: 160px;
+}
+
+.logincard{
+    border: 2px solid ;
+    border-color: #E2E8F0;
+	background-color: white;
+    border-radius: 5px;
+    width: 500px;
+    padding: 30px;
+	margin-left: auto;
+	margin-right: auto;
+	box-shadow: 0px 2px 2px #b6b6b6;
+
+}
+
+.logincard button{
+	background-color: #18b683;
+	border: none;
+	padding: 7px 50px 7px 50px;
+	margin-top: 30px;
+	width: 100%;
+}
+
+/*Register*/
+
+.registerform{
+    border: 2px solid ;
+    border-color: #E2E8F0;
+    border-radius: 5px;
+    box-shadow: 0px 2px 2px #b6b6b6;
+    width: auto;
+    padding: 20px;
+	background-color: white;
+}
+
+.row{
+	padding: 0px 15px 0px 15px;
+}
+
+.new_user{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+	
+}
+
+.new_user label{
+	font-weight: 600;
+	margin-top: 10px;
+}
+
+.new_user input, textarea{
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-shadow: 0px 0.5px 2px rgb(235, 235, 235);
+}
+
+.new_user input{
+	padding: 5px 0px 5px 0px;
+}
+
+.new_user button{
+	background-color: #18b683;
+	border: none;
+	padding: 7px 50px 7px 50px;
+	margin-top: 20px;
+}
+
+#bio{
+	width: 400px;
+}
+
+
+#browse{
+	border: none;
+	box-shadow: none;
+	background-color: white;
+	color: black;
+	outline: none;
+}
+
+h2{
+	font-weight: 700;
+	margin-right: 160px;
+	margin-bottom: 20px;
+}
+
+.column1{
+	margin-right: 30px
+}
+
+
+
+
 
 /* USER PAGE */
 .user-profile h2{
