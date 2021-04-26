@@ -193,62 +193,65 @@ const users = {
     <h2>User {{user.id}}</h2>
   </div>
 
-  <div class = "profile-header">
-      <img id="profile-pic" :src="'/static/uploads/' + user.photo" alt="New User Image" class = "profile-image"> 
-  </div>
+  <div class = "user-body">
 
-  <div class="profile-body">
-    <div class="column">
-      <p class = "user-name">{{user.name}}</p>   
-      <p class = "user_at"> @{{user.username}} </p> 
-  </div> 
+    <div class = "profile-header">
+        <img id="profile-pic" :src="'/static/uploads/' + user.photo" alt="New User Image" class = "profile-image"> 
+    </div>
 
-  <p class = "profile-text"> {{user.biography}} </p> <br>
-                
-  <div class = "column">
+    <div class="profile-body">
+      <div class="column">
+        <p class = "user-name">{{user.name}}</p>   
+        <p class = "user_at"> @{{user.username}} </p> 
+    </div> 
+
+    <p class = "profile-text"> {{user.biography}} </p> <br>
+                  
+    <div class = "column">
+      <div class = "row">
+        <p class = "profile-text">Email:</p>
+        <p class="profile-info"> {{user.email}} </p> <br>
+    </div>
+
     <div class = "row">
-      <p class = "profile-text">Email:</p>
-      <p class="profile-info"> {{user.email}} </p> <br>
-  </div>
+      <p class = "profile-text">Location:</p>
+      <p class="profile-info"> {{user.location}} </p> <br>
+    </div>
 
-  <div class = "row">
-    <p class = "profile-text">Location:</p>
-    <p class="profile-info"> {{user.location}} </p> <br>
-  </div>
+    <div class = "row">
+      <p class = "profile-text">Joined:</p>
+      <p class="profile-info"> {{user.date_joined}} </p> <br>
+    </div>
 
-  <div class = "row">
-    <p class = "profile-text">Joined:</p>
-    <p class="profile-info"> {{user.date_joined}} </p> <br>
-  </div>
+        </div>
+      </div>
+              
+    <h2 class="fav-cars"> Cars Favourited </h2>
+    <div class = "row">
 
+
+  <ul class="cars__list">
+  <li v-for="car in cars" class="cars__item">
+      <div class="detailcard-group">
+        <div class="detailcard">
+          <img id="car-img" :src="'/static/uploads/' + car.photo" alt="car img"> 
+          <div class= "top">
+            <h5> {{car.year}} </h5>
+            <h5> {{car.make}} </h5>
+            <div class="price">
+                  <img id = "price-tag" src = "/static/price-tag.png">
+                  <p class="text"> {{car.price}} </p>
+              </div>  
+            </div>
+            <p class="text"> {{car.model}} </p>
+        </div>
       </div>
     </div>
-             
-  <h2 class="fav-cars"> Cars Favourited </h2>
-  <div class = "row">
-
-
-<ul class="cars__list">
-<li v-for="car in cars" class="cars__item">
-    <div class="detailcard-group">
-      <div class="detailcard">
-        <img id="car-img" :src="'/static/uploads/' + car.photo" alt="car img"> 
-        <div class= "top">
-           <h5> {{car.year}} </h5>
-           <h5> {{car.make}} </h5>
-           <div class="price">
-                <img id = "price-tag" src = "/static/price-tag.png">
-                <p class="text"> {{car.price}} </p>
-            </div>  
-          </div>
-          <p class="text"> {{car.model}} </p>
-      </div>
-    </div>
-    
 </li>
 </ul>
 </div>
   `, 
+
   data() {
     return { user: [], cars: []
     }
@@ -400,7 +403,7 @@ const car_id = {
 
   <div>
   <div class="cars-container">
-      <div class="car_info">
+      <div class="car-info">
           <div class="img-box">
               <img id="car-pic" :src="'/static/uploads/' + photo" alt="Pic of car" class="car-image"> 
           </div>
