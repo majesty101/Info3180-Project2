@@ -645,12 +645,10 @@ const Home = {
       <br>
      <button id="reg_btn" @click="$router.push('register')" type="button" class="btn btn-success">Register</button>
      <button id="login_btn" @click="$router.push('login')" type="button" class="btn btn-primary">Login</button>
-      <div class='home-img'>
-          <img src="/static/images/homepage_img.jpg" class="" alt="luxurycar">            
-      </div>  
-      
-     
      </div>
+     <div class='home-img'>
+     <img src="/static/homepage-img.jpg" class="homepage-img" alt="luxurycar">            
+ </div> 
   </div> 
   `, 
   data(){
