@@ -511,25 +511,34 @@ const explorepage={
   <div class="cars">
       <h2>Explore</h2>
       
-      </div>
+     
   
-<form @submit.prevent="Viewdetails" methods="GET" id="searchform"  enctype="multipart/form-data">
-  <div class= form-group>
-      <textfield type="text" rows="3" cols="30" id="des" name=""></textfield>
-       <br/>
-        <br/>
-      <label for="make">Make</label><br/>
-      <input type="text" name="searchformake" v-model="searchMake" />
-      <br/>
-      <br/>
-      <label for="model">Model</label><br/>
-      <input type="text" name="searchformodel" v-model="searchModel" />
-      <br/>
-      <br/>
-  
-      <button id="but" type="submit" name="submit">Submit</button>
-  </div>
-</form>
+      <form @submit.prevent="Viewdetails" methods="GET" id="searchform"  enctype="multipart/form-data">
+        <div class = "explore-card"> 
+           <div class= form-group>
+              <div class= "row">
+               <div class = "col">
+              
+
+                   <label for="make">Make</label>
+                  <br><input type="text" name="searchformake" v-model="searchMake" />
+                </div>
+
+                <div class = "col">
+                  <label for="model">Model</label>
+                  <br> <input type="text" name="searchformodel" v-model="searchModel" />
+                </div>         
+            
+              </div>
+            
+               <div class = "explore-btn">
+                  <button id="but" type="submit" name="submit">Submit</button>
+              </div>
+            </div>
+        </div>
+    </form>
+
+</div>
  
 
 
