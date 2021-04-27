@@ -1,284 +1,306 @@
 body {
     padding-top: 5rem;
+	background-color: rgb(240, 240, 240);
 }
-
-/* Login*/
-.login-container{
-	margin: 0;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-	
-    margin-right: -50%;
-    
+label{
+	font-weight: 600;
+	margin-top: 10px;
 }
-
-.login-container h2{
-	padding-bottom: 25px;
-	font-weight: bold;
-	display: flex;
-	justify-content: center;
-}
-.logincard label{
-	padding: 10px;
-	color: rgb(65, 64, 64);
-	font-weight: bold;
-}
-.logincard{
-	padding-bottom: 20px;
-	border: 2px solid ;
-    border-color: #E2E8F0;
-    border-radius: 5px;
-    width: 500px;
-	padding: 20px, 10px;
-	
-}
-
-.form-group{
-	font-size: large;
-	padding:30px;
-}
-
 
 /*Home */
+
 .main{
-    position: fixed;
-	top: 50%;
-	left: 30%;
-	transform: translate(-50%, -50%);
-	width: 400px;
-	height: 350px;
-	padding: 80px 40px;
-	background: rgba(253, 253, 253, 0.7);
-    align-items: left;
-    justify-content: left;
-
+	padding: 100px;
 }
-
 .main p{
-	margin: 0;
-	padding: 0;
-	color: rgb(2, 0, 0);
+	color: rgb(61, 61, 61);
+	padding: 0 0 20px;
+	width: 390px;
     text-align: left;
 }
 
 .main h2{
-	margin: 0;
+	width: 200px;
 	padding: 0 0 20px;
 	color: rgb(0, 0, 0);
 	text-align: left;
+	font-weight: 700;
 
 }
 
 #login_btn{
     min-width:90px;
+	width: 130px;
+	background-color: #0fb881;
+	border-style: none;
+	
 }
-
 
 #reg_btn{
     min-width:90px;
     align-self: center;
 	margin-right: 0.5em;
+	width: 130px;
+	background-color: #3b82f6;
+	border-style: none;
 }
 
-.homepage-img{
-	position: fixed;
-	top: 30%;
-	left: 70%;
-	transform: translate(-50%, -50%);
-	width: 500px;
-	height: 800px;
-	padding: 60px 30px;
+.home-page{
+	display: flex;
+
 }
 
 
-footer  {
+.home-img{
+	max-width: 1200px;
+	overflow: hidden;
+}
+
+footer{
     padding-top: 20px;
 }
 
-/* USER PAGE */
-.user-profile h2{
-	padding: 20px;
-}
+/*Login*/
 
-#profile-pic{
-	height: 200px;
-	width: 200px;
-	border-radius: 35%;
-}
-
-.profile-header{
+.login-container{
 	display: flex;
-	flex-direction: row;
-	border: 2px solid ;
-    border-color: #ced7e2;
+    align-items: center;
+    flex-direction: column;
+	padding: 100px;
+
+}
+
+.login-container h2{
+	margin-left: 160px;
+}
+
+.logincard{
+    border: 2px solid ;
+    border-color: #E2E8F0;
+	background-color: white;
     border-radius: 5px;
-    box-shadow: 6px 8px 6px #d8dee4;
-    width: 700px;
-	padding: 20px, 10px;
+    width: 500px;
+    padding: 30px;
+	margin-left: auto;
+	margin-right: auto;
+	box-shadow: 0px 2px 2px #b6b6b6;
+
 }
 
-.profile-header label{
-	color: rgb(65, 62, 62);
-	font-weight: bold;
+.logincard button{
+	background-color: #18b683;
+	border: none;
+	padding: 7px 50px 7px 50px;
+	margin-top: 30px;
+	width: 100%;
 }
 
-.user-body{
-	margin: auto;
-	display: flex;
-	align-items: center;
-	flex-direction: column;
-}
+/*Register*/
 
-.user-name{
-	display: flex;
-	flex-direction: row;
-	font-size: xx-large;
-}
-
-.user-at{
-	padding-left: 10px;
-}
-
-.navbar-default .navbar-brand {
-    color: #777;
-}
-
-.profile-body{
-	padding-left: 20px;
-}
-
-.user-at{
-	padding-top: 0px;
-	margin-top:0px;
-	font-size: x-large;
-	color:#73787c;
-}
-
-.profile-info{
-	color:black;
-	margin-left: 5px;
-	font-weight: 486px;
-}
-
-.navbar-default {
-    background-color: #fffdfd;
-    border-color: #E7E7E7;
-}
-
-.fav-cars{
-	text-align: left;
-}
-
-.price{
-	padding:5px;
-	display:flex;
-	background-color:#18b683;
-	border-radius: 10px;
-	color: white;
-}
-
-#price-tag{
-	margin-right:5px;
-}
-
-
-/* CAR ID */
-.cars-container {
-	display: flex;
-	justify-content: center;
-}
-
-.car-info{
-	border: 2px solid ;
-    border-color: #e2e8f0;
+.registerform{
+    border: 2px solid ;
+    border-color: #E2E8F0;
     border-radius: 5px;
-    box-shadow: 5px 7px 5px #e6e8eb;
-    width: 700px;
-	padding: 21px, 11px;
+    box-shadow: 0px 2px 2px #b6b6b6;
+    width: auto;
+    padding: 20px;
+	background-color: white;
 }
 
-.car-info label{
-	color: rgb(65, 64, 64);
-	font-weight: bold;
+.row{
+	padding: 0px 15px 0px 15px;
 }
 
-.year-of-model {
-	display: flex;
-	justify-content: flex-start;
+.new_user{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+	
 }
 
-.car-model{
-	color: rgb(119, 118, 118);
+.new_user label{
+	font-weight: 600;
+	margin-top: 10px;
+}
+
+.new_user input, textarea{
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-shadow: 0px 0.5px 2px rgb(235, 235, 235);
+}
+
+input{
+	padding: 5px 0px 5px 0px;
+}
+
+
+select{
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-shadow: 0px 0.5px 2px rgb(235, 235, 235);
+	padding: 6px 0px 6px 6px ;
+	width: 178px;
+	
+}
+
+.new_user #addcar2{
+	margin-right: 226px;
+}
+
+.new_user button{
+	background-color: #0fb881;
+	border: none;
+	padding: 7px 50px 7px 50px;
+	margin-top: 20px;
+}
+
+.bio{
+	width: 100%;
+}
+
+
+#browse1, #browse2{
+	border: none;
+	box-shadow: none;
+	background-color: white;
+	color: black;
+	outline: none;
+}
+
+h2{
 	font-weight: 700;
+	margin-right: 160px;
+	margin-bottom: 20px;
 }
 
-
-.carinfobtns{
-	justify-content: space-between;
-	display: flex;
+.new_user h2{
+	margin-left: 25px;
 }
 
-.car-btns img{
-	height: 20px;
-	width: 20px;
-
+.column1{
+	margin-right: 30px
 }
-
-.btn-circle {
-    width: 40px;
-    height: 40px;
-    padding: 6px 0px;
-    border-radius: 20px;
-    text-align: center;
-    font-size: 12px;
-    line-height: 1.42857;
-}
-
 
 /*Explore Page*/
 .cars{
-	margin: auto;
 	display: flex;
 	align-items: center;
 	flex-direction: column;
+
 	
 }
 
 .explore-card label{
 	color: rgb(65, 64, 64);
 	font-weight: bold;
+
 }
 
-.explore-card h2{
-	font-weight: bold;
-	padding-bottom: 20px;
-	text-align: left;
+.cars h2{
+	margin-right:580px;
 }
-
-
 
 .explore-card{
 	border: 2px solid ;
     border-color: #E2E8F0;
     border-radius: 5px;
-    box-shadow: 5px 7px 5px #dee1e4;
+    box-shadow: 0px 2px 2px #b6b6b6;
     width: 700px;
-	padding: 10px 30px;
+	padding: 20px 40px 40px 30px;
 	margin-bottom: 50px;
+	background-color: white;
+	
+	
 }
 
 
 .explore-card button{
-	min-width:90px;
-	display: flex;
-    justify-content: center;
-	margin-right: 0.5em;
+	background-color: #0fb881;
+	border: none;
+	padding: 7.5px 50px 7.5px 50px;
+	margin-top: 42px;
+	border-radius: 5px;
+	color: white;
   
-    
 }
-#but{
-	padding-bottom: 10px;
+
+.cars li{
+    display: inline-block;
+    margin: 20px;
+    padding: 10px;
+    list-style-type: none;
+    text-align: left;
+    width: 300px;
+    height: auto;
+    border-radius: 10px;
+    background-color: #ffffff;
+    border-top-color: aquamarine;
+    box-shadow: 0 4px 4px rgba(34, 34, 34, 0.2);
+    overflow: hidden;
+}
+
+.cars img{
+    width: 280px;
+    height: auto;
+}
+
+.head1 h5{
+    font-weight: 600;
+    font-size: larger;
+    margin-bottom: 10px;
+
+}
+
+h5{
+	margin-right: 0.5em;
+}
+
+.head1{
+	display:flex;
+}
+
+.price{
+
+	padding:2px;
+	background-color:#18b683;
+	border-radius: 10px;
+	color: white;
+	display: flex;
+	justify-content: space-between;
+}
+
+
+.car-container{
+	background-color: white;
+}
+   
+
+.top{
+   justify-content: space-between;
+    display: flex;
+}
+
+
+.cars .desc{
+    font-size: smaller;
+}
+
+#bluebtn{
+	width:100%;
+	font-weight: bold;
+	font-size: smaller;
+	background-color:#3b82f6;
+	border: none;
+	padding: 7.5px 50px 7.5px 50px;
+	border-radius: 5px;
+	color: white;
+}
+
+
+.class-group{
+	flex-direction: row;
+	display: flex;
+	
 }
 
 .car__list{
@@ -297,13 +319,11 @@ footer  {
 }
 
 
-/*Add Car*/
-.addcard{
-	margin: auto;
+/*Add Car
+.addcard {
 	display: flex;
-	align-items: center;
 	flex-direction: column;
-}
+}*/
 .form-groupcar label{
 	color: rgb(65, 64, 64);
 	font-weight: bold;
@@ -340,14 +360,3 @@ footer  {
 .form-groupcar .row{
 	
 }
-
-.addcard label{
-	color: rgb(65, 64, 64);
-	font-weight: bold;
-}
-
-/*Register*/
-
-
-
-

@@ -4,23 +4,19 @@ const Login = {
   <div class="login-container">
   <h2> {{displayTitle}} </h2>
   <form @submit.prevent="login" method="post" id="loginForm">
-  
 
       <div class="alert" id="showAlert">
           {{alertText}}
           <ul>
               <li v-for = "showError in errors"> {{showError}} </li>
           </ul>
-      </div>   
-      <div class="logincard">      
+      </div>
+      <div class="logincard">
           <div class="form-group">
-              <label for ="username" class="form-label">Username</label>
+              <label for ="username" class="form-control-label">Username</label>
               <input type="text" class="form-control" name="username">
-      
-              <label for="password" class="form-label" >Password</label>
+              <label for="password">Password</label>
               <input type="password" class="form-control" name="password">
-          
-      
               <button type="submit"  class="btn btn-primary">Login</button>
               </div>
       </div>
@@ -86,50 +82,51 @@ mounted() {
 const register = {
   name: 'register',
   template:`
-  <div class="new_user">
-        <h2> Registration </h2>
   
- 
-          <form @submit.prevent="registerUser" method="POST" enctype="multipart/form-data" id="register_form">
-           <div class ="registerform">
-          
-             <div class= "row1">
-                 <div class= "column">
-                 <label> Username </label>
-                 <input type="text" name="username">
+  <div class="new_user">
+    <h2>Register New User</h2>   
+    <form @submit.prevent="registerUser" method="POST" enctype="multipart/form-data" id="register_form">
+      <div class = "registerform">
+      
+       <div class= "row">
+          <div class= "column1">
+             <label> Username </label><br>
+             <input type="text" name="username"><br>
 
-                 </div> 
-                 <div class="column">
-                   <label> Password </label>
-                   <input type="text" name="password">
-                 </div>
-               </div>  
+            </div> 
+          <div class="column2">
+              <label> Password </label><br>
+              <input type="text" name="password"><br>
+          </div>
+        </div>  
 
-              <div class = "row2">
-                <div class= "column">
-                    <label> Full Name </label>
-                    <input type="text" name="name">
+        <div class = "row">
+          <div class= "column1">
+            <label> Full Name </label><br>
+            <input type="text" name="name"><br>
             
-               </div>
-                <div class= "column">
-                   <label> Email </label>
-                  <input type="text" name="email">
-                </div>
-             </div>
+          </div>
+          <div class= "column2">
+            <label> Email </label><br>
+            <input type="text" name="email"><br>
+          </div>
+        </div>
 
-                <label> Location </label>
-                <input type="text" name="location">
+      <label> Location </label><br>
+      <input type="text" name="location"><br>
 
-                <label> Biography </label><br>
-                <textarea name="biography"> </textarea><br>
+      <label> Biography </label><br>
+      <textarea rows="4" class="bio" name="biography"> </textarea><br>
 
-                  <label> Upload Photo: </label><br>
-                    <input type="file" name="photo">
-            </div> <br>
-            <button class="btn btn-primary mb-2"> Register </button>
+      <label> Upload Photo: </label><br>
+      <input id="browse1" type="file" name="photo"> <br>
+      <button class="btn btn-primary mb-2"> Register </button>
+
+    </div> 
     
   </form>
-   </div>
+</div>
+   
   `,
 
   methods: {
@@ -192,58 +189,68 @@ const users = {
   name: 'users',
   template:`
   <div class="user-profile">
-  <h2>User {{user.id}}</h2>
-</div>
-<div class = "user-body">
-  <div class = "profile-header">
-      <img id="profile-pic" :src="'/static/uploads/' + user.photo" alt="New User Image" class = "profile-image"> 
+    <h2>User {{user.id}}</h2>
   </div>
-  <div class="profile-body">
-    <div class="column">
-      <p class = "user-name">{{user.name}}</p>   
-      <p class = "user_at"> @{{user.username}} </p> 
-  </div> 
-  <p class = "profile-text"> {{user.biography}} </p> <br>
-                
-  <div class = "column">
+
+  <div class = "user-body">
+
+    <div class = "profile-header">
+        <img id="profile-pic" :src="'/static/uploads/' + user.photo" alt="New User Image" class = "profile-image"> 
+    </div>
+
+    <div class="profile-body">
+      <div class="column">
+        <p class = "user-name">{{user.name}}</p>   
+        <p class = "user_at"> @{{user.username}} </p> 
+    </div> 
+
+    <p class = "profile-text"> {{user.biography}} </p> <br>
+                  
+    <div class = "column">
+      <div class = "row">
+        <p class = "profile-text">Email:</p>
+        <p class="profile-info"> {{user.email}} </p> <br>
+    </div>
+
     <div class = "row">
-      <p class = "profile-text">Email:</p>
-      <p class="profile-info"> {{user.email}} </p> <br>
-  </div>
-  <div class = "row">
-    <p class = "profile-text">Location:</p>
-    <p class="profile-info"> {{user.location}} </p> <br>
-  </div>
-  <div class = "row">
-    <p class = "profile-text">Joined:</p>
-    <p class="profile-info"> {{user.date_joined}} </p> <br>
-  </div>
+      <p class = "profile-text">Location:</p>
+      <p class="profile-info"> {{user.location}} </p> <br>
+    </div>
+
+    <div class = "row">
+      <p class = "profile-text">Joined:</p>
+      <p class="profile-info"> {{user.date_joined}} </p> <br>
+    </div>
+
+        </div>
+      </div>
+              
+    <h2 class="fav-cars"> Cars Favourited </h2>
+    <div class = "row">
+
+
+  <ul class="cars__list">
+  <li v-for="car in cars" class="cars__item">
+      <div class="detailcard-group">
+        <div class="detailcard">
+          <img id="car-img" :src="'/static/uploads/' + car.photo" alt="car img"> 
+          <div class= "top">
+            <h5> {{car.year}} </h5>
+            <h5> {{car.make}} </h5>
+            <div class="price">
+                  <img id = "price-tag" src = "/static/price-tag.png">
+                  <p class="text"> {{car.price}} </p>
+              </div>  
+            </div>
+            <p class="text"> {{car.model}} </p>
+        </div>
       </div>
     </div>
-            
-  <h2 class="fav-cars"> Cars Favourited </h2>
-  <div class = "row">
-<ul class="cars__list">
-<li v-for="car in cars" class="cars__item">
-    <div class="detailcard-group">
-      <div class="detailcard">
-        <img id="car-img" :src="'/static/uploads/' + car.photo" alt="car img"> 
-        <div class= "top">
-          <h5> {{car.year}} </h5>
-          <h5> {{car.make}} </h5>
-          <div class="price">
-                <img id = "price-tag" src = "/static/price-tag.png">
-                <p class="text"> {{car.price}} </p>
-            </div>  
-          </div>
-          <p class="text"> {{car.model}} </p>
-      </div>
-    </div>
-  </div>
 </li>
 </ul>
 </div>
   `, 
+
   data() {
     return { user: [], cars: []
     }
@@ -291,7 +298,7 @@ const users = {
               //this.errormessage = "Something went wrong"
               console.log(error);
               });
-      },
+      }
 
       
     },
@@ -301,86 +308,57 @@ const users = {
 const cars = {
   name: 'newcar',
   template:`
-
-  <div class = "car-container">
-  <h2> Add New Car </h2>
-
+  
+  <div class = "new_user">
+  <h2 id= "addcar2"> Add New Car </h2>
   <form v-on:submit.prevent="registerCar" method="POST" enctype="multipart/form-data" id="addcarForm">
-  <div class = "addcard">
-    <div class= "form-groupcar">
-
-       <div class= "row">
-          <div class= "column">
+  <div class = "registerform">
+      <div class= "row">
+          <div class= "column1">
              <label> Make </label><br>
              <input type="text" name="make"><br>
-
             </div> 
-
           <div class= "column">
             <label> Model </label><br>
             <input type="text" name="make"><br>
-
            </div> 
-
-          
         </div>
         <div class="row">
-          <div class= "column">
+          <div class= "column1">
             <label> Colour </label><br>
             <input type="text" name="make"><br>
-
           </div> 
-
           <div class= "column">
             <label> Year </label><br>
             <input type="text" name="make"><br>
-
           </div>
         </div>
-
         <div class = "row">
-        <div class= "column">
-        <label> Price </label><br>
-        <input type="text" name="price"><br>
-
-
-        </div>
-        
+            <div class= "column1">
+              <label> Price </label><br>
+              <input type="text" name="price"><br>
+            </div>
             <div class="column">
-                <label> Car Type </label><br>
-                <select name="cartype"> 
-                    <option value="SUV" placeholder="SUV"> SUV </option>
-                    <option value="CONVERTIBLE"> Convertable </option>
-                    <option value="HATCHBACK"> Hatchback </option>
-                    <option value="Coupe"> Coupe </option>
-                </select><br>
+                  <label> Car Type </label><br>
+                  <select name="cartype"> 
+                      <option value="SUV" placeholder="SUV"> SUV </option>
+                      <option value="CONVERTIBLE"> Convertable </option>
+                      <option value="HATCHBACK"> Hatchback </option>
+                      <option value="Coupe"> Coupe </option>
+                  </select><br>
             </div>
-            </div>
-
-    
-            <div class = "column">
-                <label> Transmission </label><br>
-                <select name="transmission"> 
-                    <option value=Automatic> Automatic </option>
-                    <option value=Manual> Manual </option>
-
-                </select><br>
-            </div>
-       
-
+        </div>
+           
+        <label> Transmission </label><br>
+        <select name="transmission"> 
+            <option value=Automatic> Automatic </option>
+            <option value=Manual> Manual </option>
+        </select><br>
         <label> Description </label><br>
-        <textarea name="description"> </textarea><br>
-
+        <textarea name="description" rows="4" class="bio"> </textarea><br>
         <label> Upload Photo: </label><br>
-        <input type="file" name="pic"><br>
-
-        <br>
-        <br>
-        <div class = "carbtn">
+        <input id= "browse2" type="file" name="pic"><br>
         <button class="btn btn-success" > Save </button>
-    </div>
-
-    </div>
     
 </div>
 </form>
@@ -396,18 +374,22 @@ const car_id = {
   <h1 v-if="car">{{car.id}}</h1>
     <p> {{ car.make }} {{ car.model }} </p>
   </div>
+
   <div>
   <div class="cars-container">
       <div class="car-info">
           <div class="img-box">
               <img id="car-pic" :src="'/static/uploads/' + photo" alt="Pic of car" class="car-image"> 
           </div>
+
           <div class = "car-body">
               <div class = "year-of-model">
                       <h2 class = "car-title">  {{ year }}  {{ make }} </h2> <br> 
               </div>
+
               <p class="car-model"> {{model}} </p>  
               <p class="car-text"> {{description}} </p>
+
               <div class = "row">
                   <div class = "column">
                       <label>Colour</label>
@@ -418,15 +400,18 @@ const car_id = {
                       <p class="car-text"> {{car_type}} </p> <br>
                   </div>
               </div>
+
               <div class = "row">
                   <div class = "column">
                       <label>Price</label>
                       <p class="car-text"> {{price}} </p> <br>
                   </div>
+
                   <div class = "column">
                       <label>Transmission</label>
                       <p class="car-text"> {{transmission}} </p> <br>
                   </div>
+
               </div>
               <div class = "car-btns">
                   <button class="btn" > Email Owner </button>
@@ -437,6 +422,7 @@ const car_id = {
                       <img src="/static/outline.png"> 
                   </button>
               </div>
+
           </div>
       </div>
   </div>
@@ -497,67 +483,51 @@ const explorepage={
   name: 'explorepage',
   template: ` 
   <div class="cars">
-      <h2>Explore</h2>
-      
-     
-  
-      <form @submit.prevent="Viewdetails" methods="GET" id="searchform"  enctype="multipart/form-data">
-        <div class = "explore-card"> 
-           <div class= form-group>
-              <div class= "row">
-               <div class = "col">
-              
-
-                   <label for="make">Make</label>
-                 <br> <input type="text" name="searchformake" v-model="searchMake" />
-                </div>
-
-                <div class = "col">
-                  <label for="model">Model</label>
-                  <br><input type="text" name="searchformodel" v-model="searchModel" />
-                </div>         
-            
-              </div>
-            
-               <div class = "explore-btn">
-                <br>  <button id="but" type="submit" name="submit">Submit</button>
-              </div>
-            </div>
-        </div>
+  <h2>Explore</h2>
+  <div class = "explore-card"> 
+    <form @submit.prevent="Viewdetails" methods="GET" id="searchform"  enctype="multipart/form-data">
+      <div class="class-group">
+      <div class = "col">
+        <label for="make">Make</label>
+        <br><input type="text" name="searchformake" v-model="searchMake" />
+      </div>
+      <div class = "col">
+        <label for="model">Model</label>
+        <br><input type="text" name="searchformodel" v-model="searchModel" />
+      </div>         
+      <div class = "explore-btn">
+        <button id="but" type="submit" name="submit">Search</button>
+      </div>
+      </div>
     </form>
-
-</div>
+  </div>
+     
+  </div>
  
 
-
+  <div class= "cars">
 <ul class="cars__list">
-<li v-for="car in cars"
-   
-class="cars__item">
-    <div class="detailcard-group">
-      <div class="detailcard">
-
-        <img id="car-img" :src="'./uploads/' + car.photo" alt="car img"> 
+<li v-for="car in cars" class="cars__item">
+  <div class="detailcard-group">
+    <div class="detailcard">
+      <img id="car-img" :src="'/static/uploads/' + car.photo" alt="car img"> 
         <div class= "top">
-           <h5> {{car.year}} </h5>
-           <h5> {{car.make}} </h5>
-
-           <div class="price">
-                <img id = "price-tag" src = "/static/price-tag.png">
-                <p class="text"> {{car.price}} </p>
-
-            </div>  
+          <div class= "head1">
+            <h5> {{car.year}} </h5>
+            <h5> {{car.make}} </h5>
           </div>
+          <div class="price">
+              <img id = "price-tag" src = "/static/price-tag.png">
+              <p class="text"> {{car.price}}</p>
+          </div>
+        </div>
           <p class="text"> {{car.model}}</p>
       </div>
-
-
-
-      <button class="btn btn-primary mb-2" @click="searchCars(car.id)">View more Details</button>
-    </div>
-   
+          <button id="bluebtn" @click="searchCars(car.id)">View more Details</button>
+  </div>
 </li>
-</ul>`,
+</ul>
+</div>`,
 
 created() {
   let self = this;
@@ -630,13 +600,12 @@ const Home = {
         <h2>Buy and Sell Cars Online</h2>
         <p> United Auto Sales provides the fastest, easiest and most user friendly way to buy or sell cars online.
         Find a Great Price and the Vehicle You Want </p>
-      <br>
-     <button id="reg_btn" @click="$router.push('register')" type="button" class="btn btn-success">Register</button>
-     <button id="login_btn" @click="$router.push('login')" type="button" class="btn btn-primary">Login</button>
-     </div>
-     <div class='home-img'>
-     <img src="/static/homepage-img.jpg" class="homepage-img" alt="luxurycar">            
- </div> 
+        <button id="reg_btn" @click="$router.push('register')" type="button" class="btn btn-success">Register</button>
+        <button id="login_btn" @click="$router.push('login')" type="button" class="btn btn-primary">Login</button>
+    </div>
+    <div class='home-img'>
+      <img src="/static/homepage-img.jpg" class="homepage-img" alt="luxurycar">            
+    </div> 
   </div> 
   `, 
   data(){
@@ -665,7 +634,7 @@ app.component('app-header', {
   template: `
       <header>
           <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
-            <a class="navbar-brand" href="#"><i class="fas fa-car"></i>United Auto Sales</a>
+            <a class="navbar-brand" href="#">United Auto Sales</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
