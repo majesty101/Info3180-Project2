@@ -1,5 +1,8 @@
 # Project 2 - VueJS
 
+HEROKU LINK 
+https://floating-chamber-20341.herokuapp.com/
+
 The goal of this lab is to become familiar with VueJS.
 
 Remember to always create a virtual environment and install the packages in your requirements file
