@@ -21,10 +21,11 @@ from functools import wraps
 from sqlalchemy import and_
 
 def requires_auth(f):
-  @wraps(f)
-  def decorated(*args, **kwargs):
-    auth = request.headers.get('Authorization', None) # or request.cookies.get('token', None)
 
+  @wraps(f)
+
+  def decorated(*args, **kwargs): 
+    auth = request.headers.get('Authorization', None) # or request.cookies.get('token', None)
     if not auth:
       return jsonify({'code': 'authorization_header_missing', 'description': 'Authorization header is expected'}), 401
 
@@ -60,7 +61,6 @@ def register():
     form = RegisterForm()
     current_dt = datetime.now()
     if form.validate_on_submit():
-        print('ONE')
         image = form.photo.data
         filename = secure_filename(image.filename)
         user = Users(username = form.username.data, password = form.password.data, name = form.name.data,
@@ -106,20 +106,11 @@ def logout():
     return json.jsonify(status=200)
 
 @app.route('/api/cars',methods = ['GET','POST'])
-
 @requires_auth
 def cars():
     form = NewCar()
-    if request.method == 'GET':
-        response = []
-        cars = Cars.query.all()
-        for i in range(len(cars)):
-            car = cars[i]
-            response.append({'id':car.id,'description':car.description,'make':car.make,'model':car.model,'colour':car.colour,'year':car.year,'transmission':car.transmission,'car_type':car.car_type, 'price':car.price,'photo':car.photo,'user_id':car.user_id})
-          
-        return jsonify(response)
-    
-    elif form.validate_on_submit():
+        
+    if form.validate_on_submit():
         image = form.photo.data
         filename = secure_filename(image.filename)
         car = Cars(description = form.description.data, make = form.make.data, model = form.model.data,
@@ -132,6 +123,16 @@ def cars():
         return jsonify(id = car.id, description = form.description.data, make = form.make.data, model = form.model.data,
         colour = form.colour.data, year = form.year.data, transmission = form.transmission.data, car_type = form.car_type.data,
         price = form.price.data, photo = filename, user_id = form.user_id.data)
+
+    if request.method == 'GET':
+        response = []
+        cars = Cars.query.all()
+        for i in range(len(cars)):
+            car = cars[i]
+            response.append({'id':car.id,'description':car.description,'make':car.make,'model':car.model,'colour':car.colour,'year':car.year,'transmission':car.transmission,'car_type':car.car_type, 'price':car.price,'photo':car.photo,'user_id':car.user_id})
+          
+        return jsonify(response)
+
 
 @app.route('/api/cars/<car_id>',methods=['GET'])
 @requires_auth

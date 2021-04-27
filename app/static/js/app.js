@@ -85,7 +85,7 @@ const register = {
   
   <div class="new_user">
     <h2>Register New User</h2>   
-    <form @submit.prevent="registerUser" method="POST" enctype="multipart/form-data" id="register_form">
+    <form @submit.prevent="registerUser" method="POST enctype="multipart/form-data" id="register_form">
       <div class = "registerform">
       
        <div class= "row">
@@ -320,17 +320,18 @@ const cars = {
             </div> 
           <div class= "column">
             <label> Model </label><br>
-            <input type="text" name="make"><br>
+            <input type="text" name="model"><br>
+
            </div> 
         </div>
         <div class="row">
           <div class= "column1">
             <label> Colour </label><br>
-            <input type="text" name="make"><br>
+            <input type="text" name="colour"><br>
           </div> 
           <div class= "column">
             <label> Year </label><br>
-            <input type="text" name="make"><br>
+            <input type="text" name="year"><br>
           </div>
         </div>
         <div class = "row">
@@ -340,7 +341,7 @@ const cars = {
             </div>
             <div class="column">
                   <label> Car Type </label><br>
-                  <select name="cartype"> 
+                  <select name="car_type"> 
                       <option value="SUV" placeholder="SUV"> SUV </option>
                       <option value="CONVERTIBLE"> Convertable </option>
                       <option value="HATCHBACK"> Hatchback </option>
@@ -364,7 +365,34 @@ const cars = {
 </form>
 </div>
 
-  `
+  `,
+  methods: {
+    registerCar(){
+        let car_fourm = document.getElementById('addcarForm');
+        let carData = new FormData(car_fourm);
+        let self = this;
+        fetch('/api/cars' ,
+        {
+          method: 'POST',
+          body: carData,
+          headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('token'), 'X-CRFToken': token
+
+          },
+          credentials: 'same-origin'
+        })
+      
+            .then(function (response) {
+            return response.json();
+            })
+            .then(function (jsonResponse) {
+            console.log(jsonResponse);
+            })
+            .catch(function (error) {
+            console.log(error);
+            });
+
+        }
+},  
 }
 
 const car_id = {
@@ -535,6 +563,7 @@ created() {
   self.searchModel = ''
   fetch('/api/cars',
   {
+    method:'GET',
     headers: { 
       'Authorization': 'Bearer ' + sessionStorage.getItem('token'), 'X-CRFToken': token
     }
