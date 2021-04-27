@@ -247,12 +247,8 @@ h2{
 .head1 h5{
     font-weight: 600;
     font-size: larger;
-    margin-bottom: 10px;
-
-}
-
-h5{
 	margin-right: 0.5em;
+
 }
 
 .head1{
@@ -260,13 +256,19 @@ h5{
 }
 
 .price{
-
-	padding:2px;
+	display: flex;
+	padding: 8px;
+	width: 100px;
+	height: 30px;
 	background-color:#18b683;
 	border-radius: 10px;
 	color: white;
-	display: flex;
 	justify-content: space-between;
+}
+
+#price-tag{
+	height: 20px;
+	width: 20px;
 }
 
 
@@ -276,8 +278,9 @@ h5{
    
 
 .top{
-   justify-content: space-between;
-    display: flex;
+   	justify-content: space-between;
+	display: flex;
+	margin-top: 10px;
 }
 
 
@@ -311,11 +314,6 @@ h5{
 	display: inline-block;
 	width: 270px;
 	padding-left: 50px;
-}
-
-#price-tag{
-	width: 15px;
-	height:15px;
 }
 
 

@@ -28,7 +28,6 @@ class NewCar(FlaskForm):
     car_type = StringField('Car Type', validators=[DataRequired()])
     price = DecimalField('Price', validators=[DataRequired()])
     photo = FileField('Photo', validators=[FileRequired(), FileAllowed(['jpg', 'png'], "Please check format, only PNG and JPG images are allowed!")])
-    user_id = IntegerField('User ID', validators=[DataRequired()])
 
 class SearchForm(FlaskForm):
     make = StringField('Make', validators=[DataRequired()])

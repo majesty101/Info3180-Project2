@@ -26,7 +26,6 @@ class Cars(db.Model):
         self.car_type=car_type
         self.price = price
         self.photo=photo
-        self.user_id=user_id
 
 
 

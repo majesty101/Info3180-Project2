@@ -353,7 +353,7 @@ const cars = {
         <label> Description </label><br>
         <textarea name="description" rows="4" class="bio"> </textarea><br>
         <label> Upload Photo: </label><br>
-        <input id= "browse2" type="file" name="pic"><br>
+        <input id= "browse2" type="file" name="photo"><br>
         <button class="btn btn-success" > Save </button>
     
 </div>
@@ -371,7 +371,7 @@ const cars = {
           method: 'POST',
           body: carData,
           headers: { 
-            'Authorization': 'Bearer ' + sessionStorage.getItem('token'), 'X-CSRFToken': token
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token'), 'X-CSRF-Token': token
 
           },
           credentials: 'same-origin'

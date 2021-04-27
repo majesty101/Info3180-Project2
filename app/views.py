@@ -109,20 +109,22 @@ def logout():
 @requires_auth
 def cars():
     form = NewCar()
-        
+    for key in form:
+        print(key)
     if form.validate_on_submit():
+
         image = form.photo.data
         filename = secure_filename(image.filename)
         car = Cars(description = form.description.data, make = form.make.data, model = form.model.data,
         colour = form.colour.data, year = form.year.data, transmission = form.transmission.data, car_type = form.car_type.data,
-        price = form.price.data, photo = filename, user_id = form.user_id.data)
+        price = form.price.data, photo = filename,user_id=current_user.get_id())
         db.session.add(car)
         db.session.commit()
         image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         flash('Car Successfully added', 'success')
         return jsonify(id = car.id, description = form.description.data, make = form.make.data, model = form.model.data,
         colour = form.colour.data, year = form.year.data, transmission = form.transmission.data, car_type = form.car_type.data,
-        price = form.price.data, photo = filename, user_id = form.user_id.data)
+        price = str(form.price.data), photo = filename)
 
     if request.method == 'GET':
         response = []
