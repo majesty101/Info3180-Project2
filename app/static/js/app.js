@@ -85,7 +85,7 @@ const register = {
   
   <div class="new_user">
     <h2>Register New User</h2>   
-    <form @submit.prevent="registerUser" method="POST enctype="multipart/form-data" id="register_form">
+    <form @submit.prevent="registerUser" method="POST" enctype="multipart/form-data" id="register_form">
       <div class = "registerform">
       
        <div class= "row">
@@ -94,9 +94,9 @@ const register = {
              <input type="text" name="username"><br>
 
             </div> 
-          <div class="column2">
+          <div class="column">
               <label> Password </label><br>
-              <input type="text" name="password"><br>
+              <input type="password" name="password"><br>
           </div>
         </div>  
 
@@ -106,7 +106,7 @@ const register = {
             <input type="text" name="name"><br>
             
           </div>
-          <div class= "column2">
+          <div class= "column">
             <label> Email </label><br>
             <input type="text" name="email"><br>
           </div>
@@ -188,68 +188,63 @@ const logout = {
 const users = {
   name: 'users',
   template:`
-  <div class="user-profile">
-    <h2>User {{user.id}}</h2>
-  </div>
-
-  <div class = "user-body">
-
-    <div class = "profile-header">
-        <img id="profile-pic" :src="'/static/uploads/' + user.photo" alt="New User Image" class = "profile-image"> 
-    </div>
-
-    <div class="profile-body">
-      <div class="column">
-        <p class = "user-name">{{user.name}}</p>   
-        <p class = "user_at"> @{{user.username}} </p> 
-    </div> 
-
-    <p class = "profile-text"> {{user.biography}} </p> <br>
-                  
-    <div class = "column">
-      <div class = "row">
-        <p class = "profile-text">Email:</p>
-        <p class="profile-info"> {{user.email}} </p> <br>
-    </div>
-
-    <div class = "row">
-      <p class = "profile-text">Location:</p>
-      <p class="profile-info"> {{user.location}} </p> <br>
-    </div>
-
-    <div class = "row">
-      <p class = "profile-text">Joined:</p>
-      <p class="profile-info"> {{user.date_joined}} </p> <br>
-    </div>
+  <div class='user-profile'> 
+    
+      <div class='photo'><img id="car-img" :src="'/static/uploads/' + user.photo" alt="user img"> </div>
+      <div class='details'> 
+    <H2> {{user.name}}</H2>
+    <p class = "user_at"> @{{user.username}} </p> 
+    <p class = "profile-text"> {{user.biography}} </p>
+      <div class='flex-row'> 
+        <div class='column'>
+          <label>Email:</label><br>
+          <label>Location:</label><br>
+          <label>Date Joined:</label>
 
         </div>
+        <div class='column2'>
+          <p>{{user.email}}</p>
+          <p>{{user.location}}</p>
+          <p>{{user.date_joined}}</p>
+        </div>
+
+
+
       </div>
+
+    </div>
+  </div>
+
+
+
               
     <h2 class="fav-cars"> Cars Favourited </h2>
     <div class = "row">
 
 
-  <ul class="cars__list">
-  <li v-for="car in cars" class="cars__item">
+    <div class= "cars">
+    <ul class="cars__list">
+    <li v-for="car in cars" class="cars__item">
       <div class="detailcard-group">
         <div class="detailcard">
           <img id="car-img" :src="'/static/uploads/' + car.photo" alt="car img"> 
-          <div class= "top">
-            <h5> {{car.year}} </h5>
-            <h5> {{car.make}} </h5>
-            <div class="price">
+            <div class= "top">
+              <div class= "head1">
+                <h5> {{car.year}} </h5>
+                <h5> {{car.make}} </h5>
+              </div>
+              <div class="price">
                   <img id = "price-tag" src = "/static/price-tag.png">
-                  <p class="text"> {{car.price}} </p>
-              </div>  
+                  <p class="text"> {{car.price}}</p>
+              </div>
             </div>
-            <p class="text"> {{car.model}} </p>
-        </div>
+              <p class="text"> {{car.model}}</p>
+          </div>
+              <button id="bluebtn" @click="searchCars(car.id)">View more Details</button>
       </div>
-    </div>
-</li>
-</ul>
-</div>
-  `, 
+    </li>
+    </ul>
+    </div>`, 
 
   data() {
     return { user: [], cars: []
@@ -375,7 +370,8 @@ const cars = {
         {
           method: 'POST',
           body: carData,
-          headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('token'), 'X-CRFToken': token
+          headers: { 
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token'), 'X-CSRFToken': token
 
           },
           credentials: 'same-origin'
