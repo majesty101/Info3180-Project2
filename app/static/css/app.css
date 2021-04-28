@@ -184,10 +184,9 @@ h2{
 /*Explore Page*/
 .cars{
 	display: flex;
-	align-items: center;
 	flex-direction: column;
-
-	
+	justify-content:center;
+	align-items: center;
 }
 
 .explore-card label{
@@ -197,7 +196,17 @@ h2{
 }
 
 .cars h2{
-	margin-right:580px;
+	width: 700px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.cars ul{
+	list-style-type: none;
+	justify-content: center;
+	margin-left: auto;
+	margin-right: auto;
+	width: 850px;
 }
 
 .explore-card{
@@ -209,8 +218,8 @@ h2{
 	padding: 20px 40px 40px 30px;
 	margin-bottom: 50px;
 	background-color: white;
-	
-	
+	margin-left: auto;
+	margin-right: auto;
 }
 
 
@@ -221,33 +230,34 @@ h2{
 	margin-top: 42px;
 	border-radius: 5px;
 	color: white;
+	cursor: pointer;
   
 }
 
 .cars li{
     display: inline-block;
-    margin: 20px;
-    padding: 10px;
+	padding: 0px 0px 10px 0px;
+    margin: 10px;
     list-style-type: none;
-    text-align: left;
-    width: 300px;
+    width: 250px;
     height: auto;
-    border-radius: 10px;
+    border-radius: 5px;
     background-color: #ffffff;
-    border-top-color: aquamarine;
     box-shadow: 0 4px 4px rgba(34, 34, 34, 0.2);
     overflow: hidden;
 }
 
+
+
 .cars img{
-    width: 280px;
+    width: 250px;
     height: auto;
 }
 
 .head1 h5{
     font-weight: 600;
-    font-size: larger;
-	margin-right: 0.5em;
+    font-size: small;
+	margin-right: 0.3em;
 
 }
 
@@ -258,17 +268,29 @@ h2{
 .price{
 	display: flex;
 	padding: 8px;
-	width: 100px;
-	height: 30px;
+	width: auto;
+	height: 20px;
 	background-color:#18b683;
-	border-radius: 10px;
+	border-radius: 5px;
 	color: white;
 	justify-content: space-between;
+	align-items: center;
 }
 
 #price-tag{
-	height: 20px;
-	width: 20px;
+	height: 14px;
+	width: 14px;
+	margin-right: 0.5em;
+}
+
+.price p{
+	margin-top: 15px;
+	font-size: small;
+}
+
+.bottom .text{
+	font-size: small;
+	color: rgb(121, 121, 121);
 }
 
 
@@ -280,24 +302,26 @@ h2{
 .top{
    	justify-content: space-between;
 	display: flex;
-	margin-top: 10px;
+	padding: 10px 10px 0px 10px;
 }
 
-
-.cars .desc{
-    font-size: smaller;
+.bottom{
+	padding: 0px 10px 0px 10px;
 }
 
 #bluebtn{
 	width:100%;
 	font-weight: bold;
-	font-size: smaller;
+	font-size: x-small;
 	background-color:#3b82f6;
 	border: none;
-	padding: 7.5px 50px 7.5px 50px;
+	padding: 5px 10px 5px 10px;
+	text-align: center;
 	border-radius: 5px;
 	color: white;
+	cursor: pointer;
 }
+
 
 
 .class-group{
@@ -316,12 +340,6 @@ h2{
 	padding-left: 50px;
 }
 
-
-/*Add Car
-.addcard {
-	display: flex;
-	flex-direction: column;
-}*/
 .form-groupcar label{
 	color: rgb(65, 64, 64);
 	font-weight: bold;
@@ -355,10 +373,7 @@ h2{
 	padding-top: 5px;
 }
 
-.form-groupcar .row{
-	
-}
-
+/*Car Details*/
 .user-profile{
 	display: flex;
 	flex-direction: row;
@@ -373,18 +388,181 @@ h2{
 
 }
 
+.car-details{
+	display: flex;
+	flex-direction: row;
+	border: 2px solid ;
+    border-color: #E2E8F0;
+    border-radius: 20px;
+    box-shadow: 0px 2px 2px #b6b6b6;
+    width: 800px;
+	height: 500px;
+    background-color: white;
+	margin-left: auto;
+	margin-right: auto;
+	overflow: hidden;
+}
+
+.photo123{
+	max-width: 350px;
+	height: auto;
+	overflow: hidden;
+	padding-right: 300px;
+}
+
+.photo-profile{
+
+	overflow: hidden;
+	height: 150px;
+	width:150px;
+	border-radius: 50%;
+	margin-top:15px;
+}
+#profile-img{
+	margin-left:auto;
+	margin-right:auto;
+	width:100%;
+	height: auto;
+
+
+}
+
+#car-pic{
+	max-height: 500px;
+	max-width: auto;
+	
+}
+
+.carspecs{
+	padding: 30px;
+	display: flex;
+	flex-direction: column;
+}
+
+.carspecs .rows{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.carspecs h2{
+	font-weight: 700;
+	margin: 0;
+}
+
+.carspecs .column{
+	align-items: center;
+	justify-content: center;
+	width: 125px;
+}
+
+.carspecs .column4{
+	align-items: center;
+	justify-content: center;
+	width: 200px;
+}
+
+.car-model{
+	color:rgb(136, 136, 136);
+	font-weight: bold;
+	font-size: larger;
+}
+
+.car-desc{
+	color:rgb(136, 136, 136);
+	font-size: small;
+}
+
+.carspecs label{
+	color:rgb(136, 136, 136);
+	font-weight: 600;
+	font-size: medium;
+}
+
+.car-text{
+	margin: 0px;
+	font-weight: 600;
+	font-size: medium;
+	margin: 0px;
+}
+
 .flex-row{
 	display: flex;
     align-items: center;
-    flex-direction: column;
+    flex-direction: row;
 }
 
-.column2{
-	padding-top: 23px;
-	padding-left: 50px;
+.car-btns{
+	margin-top: 120px;
+	justify-content: space-between;
+	display: flex;
+}
+
+#emailbtn{
+	background-color: #0fb881;
+}
+
+.car-btns button{
+	border: none;
+	padding: 7px 40px 7px 40px;
+	border-radius: 10px;
+	margin-top: 20px;
+	color: white;
+	cursor: pointer;
+	font-size: smaller;
+}
+
+.flexlabels{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	text-align: left;
+}
+
+/*user profile*/
+
+.details h2{
+	font-weight: 700;
+	margin: 0;
+}
+
+.label-data{
+	display: flex;
+    flex-direction: column;
+	margin-left: 0.5em;
+	text-align: right;
+	
+	
+}
+
+.details .column{
+	color: grey;
 }
 
 .details{
 	display: flex;
 	flex-direction: column;
+	padding-left: 3em;
+	padding-right: 180px;
+}
+
+
+.user-profile .column{
+	display: flex;
+	flex-direction:column;
+}
+
+.user-profile .column6 p{
+     /*padding:3.5px ;*/
+	font-weight: 600;
+	margin:10px;
+	
+}
+
+.column6{
+justify-content: center;
+flex-direction: column;
+display:flex;
+justify-content: space-between;
+margin-left:30px;
 }

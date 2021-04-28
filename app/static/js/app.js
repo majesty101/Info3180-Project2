@@ -1,3 +1,4 @@
+
 const Login = {
   name: 'loginPage',
   template:`
@@ -17,7 +18,7 @@ const Login = {
               <input type="text" class="form-control" name="username">
               <label for="password">Password</label>
               <input type="password" class="form-control" name="password">
-              <button type="submit"  class="btn btn-primary">Login</button>
+              <button type="submit" class="btn btn-primary">Login</button>
               </div>
       </div>
   </form>
@@ -47,10 +48,12 @@ methods: {
       }).then(function(response) {
           return response.json();
       }).then(function(jsonResponse) {
+
           // display a success message or error/s, depending
           displayAlert.style.display = "block";
           if (jsonResponse.status == 200) {
               self.alertText = jsonResponse.message;
+              
               // alert(self.alertText);
               self.errors = []
               displayAlert.classList.add("alert-success");
@@ -87,24 +90,20 @@ const register = {
     <h2>Register New User</h2>   
     <form @submit.prevent="registerUser" method="POST" enctype="multipart/form-data" id="register_form">
       <div class = "registerform">
-      
        <div class= "row">
           <div class= "column1">
              <label> Username </label><br>
              <input type="text" name="username"><br>
-
             </div> 
           <div class="column">
               <label> Password </label><br>
               <input type="password" name="password"><br>
           </div>
         </div>  
-
         <div class = "row">
           <div class= "column1">
             <label> Full Name </label><br>
             <input type="text" name="name"><br>
-            
           </div>
           <div class= "column">
             <label> Email </label><br>
@@ -160,7 +159,7 @@ const register = {
 const logout = {
   name: 'logout',
   template:`
-  <h1> Logging out user <h1>
+  <h1> Logging out user </h1>
   `,
   created() {
     let self = this;
@@ -188,63 +187,55 @@ const logout = {
 const users = {
   name: 'users',
   template:`
-  <div class='user-profile'> 
-    
-      <div class='photo'><img id="car-img" :src="'/static/uploads/' + user.photo" alt="user img"> </div>
-      <div class='details'> 
-    <H2> {{user.name}}</H2>
-    <p class = "user_at"> @{{user.username}} </p> 
-    <p class = "profile-text"> {{user.biography}} </p>
-      <div class='flex-row'> 
-        <div class='column'>
-          <label>Email:</label><br>
-          <label>Location:</label><br>
-          <label>Date Joined:</label>
-
+  <div class='user-profile'>
+      <div class='photo-profile'>
+        <img id="profile-img" :src="'./app/static/uploads/' + user.photo" alt="user img">
+      </div>
+    <div class='details'> 
+        <h2 class= "username-head"> {{user.name}}</h2>
+        <p class = "car-model"> @{{user.username}} </p> 
+        <p class = "car-desc"> {{user.biography}} </p>
+      <div class="flex-row">
+        <div class='column'> 
+            <label>Email:</label>
+            <label>Location:</label>
+            <label>Date Joined:</label>
         </div>
-        <div class='column2'>
+        <div class='column6'> 
           <p>{{user.email}}</p>
           <p>{{user.location}}</p>
           <p>{{user.date_joined}}</p>
         </div>
-
-
-
       </div>
-
     </div>
-  </div>
 
+   </div>
 
-
-              
+         
     <h2 class="fav-cars"> Cars Favourited </h2>
-    <div class = "row">
 
-
-    <div class= "cars">
-    <ul class="cars__list">
-    <li v-for="car in cars" class="cars__item">
-      <div class="detailcard-group">
-        <div class="detailcard">
+<div class="cars">
+    <ul class = "carlistitems">
+      <li v-for="car in cars">
           <img id="car-img" :src="'/static/uploads/' + car.photo" alt="car img"> 
-            <div class= "top">
-              <div class= "head1">
-                <h5> {{car.year}} </h5>
-                <h5> {{car.make}} </h5>
-              </div>
-              <div class="price">
-                  <img id = "price-tag" src = "/static/price-tag.png">
-                  <p class="text"> {{car.price}}</p>
-              </div>
+          <div class= "top">
+            <div class= "head1">
+              <h5> {{car.year}} </h5>
+              <h5> {{car.make}} </h5>
             </div>
-              <p class="text"> {{car.model}}</p>
+            <div class="price">
+                <img id = "price-tag" src = "/static/price-tag.png">
+                <p class="text"> {{car.price}}</p>
+            </div>
           </div>
-              <button id="bluebtn" @click="searchCars(car.id)">View more Details</button>
-      </div>
-    </li>
+          <div class="bottom">
+            <p class="text"> {{car.model}}</p>
+            <button id="bluebtn" @click="searchCars(car.id)">View more Details</button>
+          </div>    
+      </li>
     </ul>
-    </div>`, 
+  </div>
+  `, 
 
   data() {
     return { user: [], cars: []
@@ -382,6 +373,7 @@ const cars = {
             })
             .then(function (jsonResponse) {
             console.log(jsonResponse);
+            location.reload();
             })
             .catch(function (error) {
             console.log(error);
@@ -395,62 +387,49 @@ const car_id = {
   name: 'carid',
   template:`
   <div class="car-details">
-  <h1 v-if="car">{{car.id}}</h1>
-    <p> {{ car.make }} {{ car.model }} </p>
-  </div>
+    <div class='photo123'>
+      <img id="car-pic" :src="'/static/uploads/' + car.photo" alt="Pic of car" class="car-image"> 
+    </div>
 
-  <div>
-  <div class="cars-container">
-      <div class="car-info">
-          <div class="img-box">
-              <img id="car-pic" :src="'/static/uploads/' + photo" alt="Pic of car" class="car-image"> 
+    <div class='carspecs'>
+      <h2 class = "car-title"> {{ car.year }}  {{ car.make }} </h2>
+      <p class="car-model"> {{ car.model }} </p> 
+      <p class="car-desc"> {{car.description}} </p>
+      <div class="rows">
+        <div class = "column">
+            <div class="flexlabels">
+              <label>Colour</label>
+              <p class="car-text"> {{car.colour}} </p>
+            </div>
+            <div class="flexlabels">
+              <label>Price</label>
+              <p class="car-text"> {{car.price}} </p>
+            </div>
+        </div>
+        <div class = "column4">
+          <div class="flexlabels">
+            <label>Body Type</label>
+            <p class="car-text"> {{car.car_type}} </p>
           </div>
-
-          <div class = "car-body">
-              <div class = "year-of-model">
-                      <h2 class = "car-title">  {{ year }}  {{ make }} </h2> <br> 
-              </div>
-
-              <p class="car-model"> {{model}} </p>  
-              <p class="car-text"> {{description}} </p>
-
-              <div class = "row">
-                  <div class = "column">
-                      <label>Colour</label>
-                      <p class="car-text"> {{colour}} </p> <br>
-                  </div>
-                  <div class = "column">
-                      <label>Body Type</label>
-                      <p class="car-text"> {{car_type}} </p> <br>
-                  </div>
-              </div>
-
-              <div class = "row">
-                  <div class = "column">
-                      <label>Price</label>
-                      <p class="car-text"> {{price}} </p> <br>
-                  </div>
-
-                  <div class = "column">
-                      <label>Transmission</label>
-                      <p class="car-text"> {{transmission}} </p> <br>
-                  </div>
-
-              </div>
-              <div class = "car-btns">
-                  <button class="btn" > Email Owner </button>
-                  <button v-if="faved" type="button" class="btn-circle">
-                      <img src="/static/heart.png"> 
-                  </button>
-                  <button v-else" @click="favouritecar(car.id)" type = "submit" class="btn-circle" >  
-                      <img src="/static/outline.png"> 
-                  </button>
-              </div>
-
+          <div class = "flexlabels">
+            <label>Transmission</label>
+            <p class="car-text"> {{ car.transmission }} </p>
           </div>
+        </div>
       </div>
-  </div>
-</div>
+
+      <div class = "car-btns">
+        <button id="emailbtn" >Email Owner </button>
+        <button v-if="faved" type="button" class="btn-circle">
+            <img src="/static/heart.png"> 
+        </button>
+        <button v-else @click="favouritecar(car.id)" type = "submit" class="btn-circle" >  
+            <img src="/static/outline.png"> 
+        </button>
+      </div>  
+    </div>
+  </div> 
+
   `,
   created() {
     let self = this;
@@ -458,7 +437,7 @@ const car_id = {
     {
       method: 'GET',
       headers: { 
-        'Authorization': 'Bearer ' + sessionStorage.getItem('token'), 'X-CRFToken': token
+        'Authorization': 'Bearer ' + sessionStorage.getItem('token'), 'X-CSRFToken': token
       }
     })
   
@@ -507,51 +486,47 @@ const explorepage={
   name: 'explorepage',
   template: ` 
   <div class="cars">
-  <h2>Explore</h2>
-  <div class = "explore-card"> 
-    <form @submit.prevent="Viewdetails" methods="GET" id="searchform"  enctype="multipart/form-data">
-      <div class="class-group">
-      <div class = "col">
-        <label for="make">Make</label>
-        <br><input type="text" name="searchformake" v-model="searchMake" />
-      </div>
-      <div class = "col">
-        <label for="model">Model</label>
-        <br><input type="text" name="searchformodel" v-model="searchModel" />
-      </div>         
-      <div class = "explore-btn">
-        <button id="but" type="submit" name="submit">Search</button>
-      </div>
-      </div>
-    </form>
-  </div>
-     
-  </div>
- 
-
-  <div class= "cars">
-<ul class="cars__list">
-<li v-for="car in cars" class="cars__item">
-  <div class="detailcard-group">
-    <div class="detailcard">
-      <img id="car-img" :src="'/static/uploads/' + car.photo" alt="car img"> 
-        <div class= "top">
-          <div class= "head1">
-            <h5> {{car.year}} </h5>
-            <h5> {{car.make}} </h5>
+    <h2>Explore</h2>
+    <div class = "explore-card"> 
+      <form @submit.prevent="Viewdetails" methods="GET" id="searchform"  enctype="multipart/form-data">
+        <div class="class-group">
+          <div class = "col">
+            <label for="make">Make</label>
+            <br><input type="text" name="searchformake" v-model="searchMake" />
           </div>
-          <div class="price">
-              <img id = "price-tag" src = "/static/price-tag.png">
-              <p class="text"> {{car.price}}</p>
+          <div class = "col">
+            <label for="model">Model</label>
+            <br><input type="text" name="searchformodel" v-model="searchModel" />
+          </div>         
+          <div class = "explore-btn">
+            <button id="searchbtn" type="submit" name="submit">Search</button>
           </div>
         </div>
-          <p class="text"> {{car.model}}</p>
-      </div>
-          <button id="bluebtn" @click="searchCars(car.id)">View more Details</button>
-  </div>
-</li>
-</ul>
-</div>`,
+      </form>
+    </div>
+
+    
+    <ul class = "carlistitems">
+      <li v-for="car in cars">
+          <img id="car-img" :src="'/static/uploads/' + car.photo" alt="car img"> 
+          <div class= "top">
+            <div class= "head1">
+              <h5> {{car.year}} </h5>
+              <h5> {{car.make}} </h5>
+            </div>
+            <div class="price">
+                <img id = "price-tag" src = "/static/price-tag.png">
+                <p class="text"> {{car.price}}</p>
+            </div>
+          </div>
+          <div class="bottom">
+            <p class="text"> {{car.model}}</p>
+            <button id="bluebtn" @click="searchCars(car.id)">View more Details</button>
+          </div>    
+      </li>
+    </ul>
+    
+  </div>`,
 
 created() {
   let self = this;

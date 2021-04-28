@@ -69,7 +69,6 @@ def register():
         db.session.add(user)
         db.session.commit()
         image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        flash('User Successfully registered', 'success')
         return json.jsonify(username = form.username.data, name = form.name.data, photo = filename,
         email = form.email.data, location = form.location.data, biography = form.biography.data,
         date_joined = current_dt.strftime("%Y-%m-%d " + "%X"))
@@ -84,35 +83,26 @@ def login():
             user = Users.query.filter_by(username=username).first()
             if user is not None and check_password_hash(user.password, password):
             # get user id, load into session
-                login_user(user)
-                flash('User Successfully logged in', 'success')
-    
+                login_user(user)    
                 payload = {
                     'username': username,
                     'password': password
                 }
                 token = jwt.encode(payload, app.config['SECRET_KEY'], algorithm='HS256')
                 return json.jsonify(status=200, token = token)
-            else:
-                flash('Username or Password is incorrect.', 'danger')
 
 @app.route('/api/auth/logout', methods=['POST'])
 @login_required
 def logout():
-    print('arrived')
     logout_user()
-    print('uers logged out')
-    flash('Log out successful', 'danger')
     return json.jsonify(status=200)
 
 @app.route('/api/cars',methods = ['GET','POST'])
 @requires_auth
 def cars():
     form = NewCar()
-    for key in form:
-        print(key)
     if form.validate_on_submit():
-
+        print(form.transmission.data)
         image = form.photo.data
         filename = secure_filename(image.filename)
         car = Cars(description = form.description.data, make = form.make.data, model = form.model.data,
@@ -121,12 +111,11 @@ def cars():
         db.session.add(car)
         db.session.commit()
         image.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        flash('Car Successfully added', 'success')
         return jsonify(id = car.id, description = form.description.data, make = form.make.data, model = form.model.data,
         colour = form.colour.data, year = form.year.data, transmission = form.transmission.data, car_type = form.car_type.data,
-        price = str(form.price.data), photo = filename)
+        price = str(form.price.data), photo = filename,user_id=current_user.get_id())
 
-    if request.method == 'GET':
+    elif request.method == 'GET':
         response = []
         cars = Cars.query.all()
         for i in range(len(cars)):
@@ -194,10 +183,6 @@ def search():
             response.append({'id':car.id,'description':car.description,'make':car.make,'model':car.model,'colour':car.colour,'year':car.year,'transmission':car.transmission,'car_type':car.car_type, 'price':car.price,'photo':car.photo,'user_id':car.user_id})
             
         return jsonify(response)
-
-    else:
-        print('none')
-        flash("Please fill out at least one of the fields", 'danger')
 
 
 
